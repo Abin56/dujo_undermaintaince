@@ -1,5 +1,6 @@
-
 import 'package:dujo_website/view/fonts/fonts.dart';
+import 'package:dujo_website/view/pages/home/footer/email/mailsender.dart';
+import 'package:dujo_website/view/pages/home/footer/hover-text/hovertext.dart';
 import 'package:flutter/material.dart';
 
 import '../../../colors/colors.dart';
@@ -34,71 +35,242 @@ class FooterSection extends StatelessWidget {
                     height: 200,
                     width: double.infinity,
                     child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Company',
-                              style:
-                                  GoogleFont.miniHeadTextStyleBold,
+                              'Lepton DuJo',
+                              style: GoogleFont.miniHeadTextStyleBold,
                             ),
-                            Text('Who We Are',),
-                            Text('Why Choose Us'),
-                            Text('Blog'),
-                            Text('Contact Us'),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'Who We Are',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'Why choose us',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Color.fromARGB(255, 168, 15, 4) : Colors.black;
+                                return SizedBox(
+                                    width: 180,
+                                    child: Text(
+                                      'Lepton DuJo For Business',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'Affiliates',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'Carrers',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'News',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
                           ],
                         ),
                         Column(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Sevices',
-                              style:
-                                  GoogleFont.miniHeadTextStyleBold,
+                              'Connect',
+                              style: GoogleFont.miniHeadTextStyleBold,
                             ),
-                            Text('Mobile App Development'),
-                            Text('iOS App Development'),
-                            Text('Android App Development'),
-                            Text('Wordpress Development'),
-                            Text('Custom Development'),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'Blog',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                      return const  CondactusUserScreen();
+                                    },));
+                                  },
+                                  child: SizedBox(
+                                      width: 160,
+                                      child: Text(
+                                        'Contact US',
+                                        style:
+                                            TextStyle(fontSize: 14, color: color),
+                                      )),
+                                );
+                              },
+                            ),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'Help Center',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'Security',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
                           ],
                         ),
                         Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Solutions',
-                              style:
-                                  GoogleFont.miniHeadTextStyleBold,
+                              'Legal',
+                              style: GoogleFont.miniHeadTextStyleBold,
                             ),
-                            Text('On demand App Solution'),
-                            Text('Photo Editing App Solution'),
-                            Text('Taxi Booking App'),
-                            Text('Fleet Management'),
-                            Text('Photo Editing App'),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'Terms & Conditions',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'Privacy Policy',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'Trademark Policy',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
+                            OnHoverText(
+                              builder: (isHoverd) {
+                                final color =
+                                    isHoverd ? Colors.orange : Colors.black;
+                                return SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      'Cancellation Policy',
+                                      style:
+                                          TextStyle(fontSize: 14, color: color),
+                                    ));
+                              },
+                            ),
                           ],
                         ),
-                        Column(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Enterprise',
-                              style:
-                                  GoogleFont.miniHeadTextStyleBold,
-                            ),
-                            Text('Enterprise Mobility'),
-                            Text('Custom Solution'),
-                            Text('Healthcare Apps'),
-                            Text('B2B'),
-                          ],
-                        )
+                        // Column(
+                        //      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //         crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: [
+                        //     Text(
+                        //       'Enterprise',
+                        //       style:
+                        //           GoogleFont.miniHeadTextStyleBold,
+                        //     ),
+                        //     Text('Enterprise Mobility'),
+                        //     Text('Custom Solution'),
+                        //     Text('Healthcare Apps'),
+                        //     Text('B2B'),
+                        //   ],
+                        // )
                       ],
                     ),
                   )

@@ -47,6 +47,7 @@ dependencies:
 
 
   url_launcher: ^6.1.5
+  sprung:
   firebase_storage: ^10.3.9
   shared_preferences: ^2.0.15
   file_picker: ^4.6.1
