@@ -161,6 +161,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  country_state_city_picker:
+    dependency: "direct main"
+    description:
+      name: country_state_city_picker
+      sha256: "509c282165df329ee5a29babb28e13dce3bc32166cea21b202a49c44d20cfef3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.8"
   cross_file:
     dependency: transitive
     description:
@@ -209,6 +217,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.1+1"
+  draw_graph:
+    dependency: "direct main"
+    description:
+      name: draw_graph
+      sha256: "87d86164bfdd9073957f9732c49b3fa5e8106a2337849d0e14cdf7fe2379bd57"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   eventify:
     dependency: transitive
     description:
@@ -1101,6 +1117,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  syncfusion_flutter_charts:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_charts
+      sha256: f809b3921919bb79cee1ab39944a905126b6c68967d1cd301059ea5e422f49c9
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.51"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      sha256: "5f7dae40707df507325ee045d1a172aea9f449ac4244d7c52391dd97208eeef8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.51"
   term_glyph:
     dependency: transitive
     description:

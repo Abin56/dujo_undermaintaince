@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import '../../../colors/colors.dart';
 import '../../../fonts/fonts.dart';
 import '../../../icons/icons.dart';
+import '../../web/teacher/teacher_pannel.dart';
 
 class StudentsLoginScreen extends StatefulWidget {
   const StudentsLoginScreen({Key? key}) : super(key: key);
@@ -40,7 +41,7 @@ class _StudentsLoginScreenState extends State<StudentsLoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Students Login',
+                            'Teacher Login',
                             style: ralewayStyle.copyWith(
                               fontSize: 48.0,
                               color: AppColors.whiteColor,
@@ -210,7 +211,13 @@ class _StudentsLoginScreenState extends State<StudentsLoginScreen> {
                       Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                                     Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TeacherPannelAdmin(),
+                            ));
+                          },
                           borderRadius: BorderRadius.circular(16.0),
                           child: Ink(
                             padding: const EdgeInsets.symmetric(

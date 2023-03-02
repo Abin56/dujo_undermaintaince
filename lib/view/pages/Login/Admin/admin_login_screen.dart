@@ -1,4 +1,9 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dujo_website/model/create_school_model/create_school_model.dart';
 import 'package:dujo_website/view/constants/const.dart';
+import 'package:dujo_website/view/pages/Login/Admin/adminMain_panel.dart';
 import 'package:dujo_website/view/pages/widgets/responsive.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +12,7 @@ import 'package:lottie/lottie.dart';
 import '../../../colors/colors.dart';
 import '../../../fonts/fonts.dart';
 import '../../../icons/icons.dart';
+import '../../web/admin/admin_pannel_main.dart';
 import 'admin_panel.dart';
 
 class AdminLoginScreen extends StatefulWidget {
@@ -17,7 +23,7 @@ class AdminLoginScreen extends StatefulWidget {
 }
 
 class _AdminLoginScreenState extends State<AdminLoginScreen> {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController schoolIdController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -110,7 +116,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0),
                         child: Text(
-                          'Email',
+                          'Admin ID',
                           style: ralewayStyle.copyWith(
                             fontSize: 12.0,
                             color: AppColors.blueDarkColor,
@@ -127,7 +133,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                           color: AppColors.whiteColor,
                         ),
                         child: TextFormField(
-                          controller: emailController,
+                          controller: schoolIdController,
                           style: ralewayStyle.copyWith(
                             fontWeight: FontWeight.w400,
                             color: AppColors.blueDarkColor,
@@ -140,7 +146,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                               icon: Image.asset(AppIcons.emailIcon),
                             ),
                             contentPadding: const EdgeInsets.only(top: 16.0),
-                            hintText: 'Enter Email',
+                            hintText: 'Enter your ID',
                             hintStyle: ralewayStyle.copyWith(
                               fontWeight: FontWeight.w400,
                               color: AppColors.blueDarkColor.withOpacity(0.5),
@@ -217,20 +223,41 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         color: Colors.transparent,
                         child: InkWell(
                           onTap: () async {
-                            try {
-                              await FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                      email: emailController.text.trim(),
-                                      password: passwordController.text.trim())
-                                  .then((value) =>
-                                      Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) {
-                                          return const AdminPanelScreen();
-                                        },
-                                      )));
-                            } catch (e) {
-                              errorBox(context, e);
-                            }
+                     //>>>>>>>>>>>>>>>>>Checking ID<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                          CollectionReference cat = FirebaseFirestore.instance
+                              .collection("SchoolListCollection");
+                          Query query = cat.where("schoolID",
+                              isEqualTo: schoolIdController.text.trim());
+                          QuerySnapshot querySnapshot = await query.get();
+                          final docData = querySnapshot.docs
+                              .map((doc) => doc.data())
+                              .toList();
+                          log(query.toString());
+                          log(docData.toString());
+                          //
+                          //>>>>>>>>>>>>>>>>>>>Checking password<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                          CollectionReference pass = FirebaseFirestore.instance
+                              .collection("SchoolListCollection");
+                          Query queries = pass.where("password",
+                              isEqualTo: passwordController.text.trim());
+                          QuerySnapshot querySnapshott = await queries.get();
+                          final docDataa = querySnapshott.docs
+                              .map((doc) => doc.data())
+                              .toList();
+                          log(query.toString());
+                          log(docDataa.toString());
+
+                        
+                          if (docDataa.isNotEmpty && docData.isNotEmpty) {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return AdminPage(id:schoolIdController.text.trim(),);
+                              },
+                            ));
+                            log('Correct password');
+                          } else {
+                            log('Wrong password');
+                          }
                           },
                           borderRadius: BorderRadius.circular(16.0),
                           child: Ink(
@@ -262,6 +289,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
     );
   }
 }
+
 
 void errorBox(context, e) {
   showDialog(

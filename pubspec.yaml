@@ -64,9 +64,7 @@ dependencies:
   http: ^0.13.5
   simple_gradient_text: ^1.2.4
   download: ^0.0.1+1
-  flutter_overboard: ^3.1.1
   painter: ^2.0.0
-  flutter_colorpicker: ^1.0.3
   open_document: ^1.0.3+1
   wakelock: ^0.6.2
   permission_handler: ^10.1.0
@@ -90,6 +88,11 @@ dependencies:
   pdf: ^3.8.4
   omni_jitsi_meet: ^1.0.2
   text_scroll: ^0.1.2
+  flutter_colorpicker: ^1.0.3
+  flutter_overboard: ^3.1.1
+  draw_graph: ^1.0.0
+  syncfusion_flutter_charts: ^20.4.50
+  country_state_city_picker: ^1.2.8
 
 dev_dependencies:
   flutter_test:

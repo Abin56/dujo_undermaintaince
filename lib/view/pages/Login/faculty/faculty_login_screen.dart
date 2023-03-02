@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dujo_website/view/constants/const.dart';
+import 'package:dujo_website/view/pages/Login/Admin/teacher_section/teachers_panel_screen.dart';
 import 'package:dujo_website/view/pages/widgets/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -218,38 +219,43 @@ class _FacultyLoginScreenState extends State<FacultyLoginScreen> {
                         color: Colors.transparent,
                         child: InkWell(
                           onTap: () async {
-                            //>>>>>>>>>>>>>>>>>Checking ID<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                            CollectionReference cat = FirebaseFirestore.instance
-                                .collection("FacultyProfiles");
-                            Query query = cat.where("facultyid",
-                                isEqualTo: _facultyController.text.trim());
-                            QuerySnapshot querySnapshot = await query.get();
-                            final docData = querySnapshot.docs
-                                .map((doc) => doc.data())
-                                .toList();
+                                         Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ClassTeacherAdmin(),
+                            ));
+                            // //>>>>>>>>>>>>>>>>>Checking ID<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                            // CollectionReference cat = FirebaseFirestore.instance
+                            //     .collection("FacultyProfiles");
+                            // Query query = cat.where("facultyid",
+                            //     isEqualTo: _facultyController.text.trim());
+                            // QuerySnapshot querySnapshot = await query.get();
+                            // final docData = querySnapshot.docs
+                            //     .map((doc) => doc.data())
+                            //     .toList();
 
-                            //
-                            //>>>>>>>>>>>>>>>>>>>Checking password<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                            CollectionReference pass = FirebaseFirestore
-                                .instance
-                                .collection("FacultyProfiles");
-                            Query queries = pass.where("facultyPassword",
-                                isEqualTo: _passwordController.text.trim());
-                            QuerySnapshot querySnapshott = await queries.get();
-                            final docDataa = querySnapshott.docs
-                                .map((doc) => doc.data())
-                                .toList();
+                            // //
+                            // //>>>>>>>>>>>>>>>>>>>Checking password<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                            // CollectionReference pass = FirebaseFirestore
+                            //     .instance
+                            //     .collection("FacultyProfiles");
+                            // Query queries = pass.where("facultyPassword",
+                            //     isEqualTo: _passwordController.text.trim());
+                            // QuerySnapshot querySnapshott = await queries.get();
+                            // final docDataa = querySnapshott.docs
+                            //     .map((doc) => doc.data())
+                            //     .toList();
 
-                            if (docDataa.isNotEmpty && docData.isNotEmpty) {
-                              // Navigator.push(context, MaterialPageRoute(
-                              //   builder: (context) {
-                              //     return FacultyLiveCourseList();
-                              //   },
-                              // ));
-                              log('Correct password');
-                            } else {
-                              log('Wrong password');
-                            }
+                            // if (docDataa.isNotEmpty && docData.isNotEmpty) {
+                            //   // Navigator.push(context, MaterialPageRoute(
+                            //   //   builder: (context) {
+                            //   //     return FacultyLiveCourseList();
+                            //   //   },
+                            //   // ));
+                            //   log('Correct password');
+                            // } else {
+                            //   log('Wrong password');
+                            // }
                           },
                           borderRadius: BorderRadius.circular(16.0),
                           child: Ink(

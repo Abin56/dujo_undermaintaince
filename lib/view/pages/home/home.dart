@@ -4,6 +4,7 @@ import 'package:dujo_website/main.dart';
 import 'package:dujo_website/view/colors/colors.dart';
 import 'package:dujo_website/view/constants/const.dart';
 import 'package:dujo_website/view/fonts/fonts.dart';
+import 'package:dujo_website/view/pages/home/create_school/create_school.dart';
 import 'package:dujo_website/view/pages/home/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -312,7 +313,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return  SchoolProfile();
+                        },));
+                      },
                       child: Container(
                         margin: EdgeInsets.only(
                             left: screenSize.width * 0.1,
@@ -327,7 +332,7 @@ class _HomePageState extends State<HomePage> {
                         child: Center(
                             child:
                                 //Image.asset("assets/images/hybrid.png",height: 100,width: 150,),
-                                Text("Explore Courses",
+                                Text("Create School Profile",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: screenSize.width * 1 / 80,

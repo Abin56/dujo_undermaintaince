@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         // ignore: sort_child_properties_last
                         child: Center(
                           child: Text(
-                            "Students Login",
+                            "Teacher Login",
                             style: GoogleFont.subHeadTextStyle,
                           ),
                         ),
