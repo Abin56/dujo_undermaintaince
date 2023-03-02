@@ -1,8 +1,5 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dujo_website/model/teacher/add_teacher.dart';
-import 'package:firebase_database/ui/firebase_sorted_list.dart';
 import 'package:flutter/material.dart';
 
 class UpdateTeacherDetails extends StatelessWidget {
@@ -45,8 +42,8 @@ class UpdateTeacherDetails extends StatelessWidget {
                   child: TextField(
                     controller: newteacherNameController,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Name : ${teacherName}',
+                      border: const OutlineInputBorder(),
+                      labelText: 'Name : $teacherName',
                     ),
                   ),
                 ),
@@ -55,21 +52,20 @@ class UpdateTeacherDetails extends StatelessWidget {
                   child: TextField(
                     controller: newclassInchargeController,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Class Incharge : ${classIncharge}',
+                      border: const OutlineInputBorder(),
+                      labelText: 'Class Incharge : $classIncharge',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: TextField(
-                    controller: newemployeeIDController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'ID : ${teacherID}',
-                    ),
-                  ),
-                ),
+                    padding: const EdgeInsets.all(15),
+                    child: SizedBox(
+                      height: 100,
+                      width: double.infinity,
+                      child: Center(
+                        child: Text('ID : $teacherID'),
+                      ),
+                    )),
                 SizedBox(
                   height: screenSize.width * 1 / 25,
                   width: screenSize.width * 1 / 7,

@@ -43,7 +43,7 @@ class _FeesUpdatesState extends State<FeesUpdates> {
                           width: screenSize.width * 1 / 3.7,
                           child: CustomButton(
                             text: "Create Invoices",
-                            onTap: () {},
+          
                           )
                           // color: Colors.red,
                           ),
@@ -69,7 +69,7 @@ class _FeesUpdatesState extends State<FeesUpdates> {
                             width: screenSize.width * 1 / 3.7,
                             child: CustomButton(
                               text: 'Edit Invoices',
-                              onTap: () {},
+        
                             ),
                             // color: Colors.red,
                           ),
@@ -92,7 +92,7 @@ class _FeesUpdatesState extends State<FeesUpdates> {
                         width: screenSize.width * 1 / 3.7,
                         child: CustomButton(
                           text: 'Remove Invoices',
-                          onTap: () {},
+       
                         ),
                         // color: Colors.red,
                       ),

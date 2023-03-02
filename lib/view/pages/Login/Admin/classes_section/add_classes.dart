@@ -3,7 +3,8 @@ import 'package:dujo_website/view/pages/web/widgets/custom_blue_button.dart';
 import 'package:flutter/material.dart';
 
 class AddClasses extends StatefulWidget {
-  const AddClasses({super.key});
+var id;
+   AddClasses({required this.id, super.key});
 
   @override
   State<AddClasses> createState() => _AddClassesState();
@@ -72,11 +73,12 @@ class _AddClassesState extends State<AddClasses> {
                     onPressed: () async {
                       print('adf');
                       final classDetails = AddClassesModel(
-                          id: '',
+                          id: classIDController.text.trim(),
                           className: classNameController.text.trim(),
                           classID: classIDController.text.trim(),
                           classIncharge: classInChargeController.text.trim(),
                           joinDate: DateTime.now().toString());
+                          CreateClassesAddToFireBase().createClassesController(classDetails, context,widget.id);
                     },
                     child: const Text("Add Teacher"),
                   ),

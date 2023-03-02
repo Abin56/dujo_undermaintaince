@@ -280,7 +280,7 @@ class _SubjectTeacherState extends State<SubjectTeacher> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => AddClasses(),
+                                    builder: (context) => AddClasses(id: ''),
                                   ));
                             },
                             child: Container(
@@ -288,7 +288,7 @@ class _SubjectTeacherState extends State<SubjectTeacher> {
                                 width: screenSize.width * 1 / 4,
                                 child: CustomButton(
                                   text: 'Current Classes',
-                                  onTap: () {},
+                               
                                 )),
                           ),
                           SizedBox(
@@ -309,7 +309,7 @@ class _SubjectTeacherState extends State<SubjectTeacher> {
                                 width: screenSize.width * 1 / 4,
                                 child: CustomButton(
                                   text: '',
-                                  onTap: () {},
+               
                                 )),
                           ),
                           SizedBox(
@@ -330,7 +330,7 @@ class _SubjectTeacherState extends State<SubjectTeacher> {
                                 width: screenSize.width * 1 / 4,
                                 child: CustomButton(
                                   text: '',
-                                  onTap: () {},
+                        
                                 )),
                           ),
                         ])),

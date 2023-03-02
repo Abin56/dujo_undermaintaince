@@ -67,7 +67,7 @@ class _BillsState extends State<Bills> {
                         width: screenSize.width * 1 / 3.7,
                         child: CustomButton(
                           text: "Create Bills",
-                          onTap: () {},
+     
                         )
                         // color: Colors.red,
                         ),
@@ -93,7 +93,7 @@ class _BillsState extends State<Bills> {
                           width: screenSize.width * 1 / 3.7,
                           child: CustomButton(
                             text: 'Edit Bills',
-                            onTap: () {},
+     
                           ),
                           // color: Colors.red,
                         ),
@@ -116,7 +116,7 @@ class _BillsState extends State<Bills> {
                       width: screenSize.width * 1 / 3.7,
                       child: CustomButton(
                         text: 'Remove Bills',
-                        onTap: () {},
+              
                       ),
                       // color: Colors.red,
                     ),

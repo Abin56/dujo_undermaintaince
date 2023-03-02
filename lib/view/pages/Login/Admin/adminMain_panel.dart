@@ -1,10 +1,10 @@
-import 'package:dujo_website/view/pages/Login/Admin/classes_section/classes_adminpanel_screen.dart';
+import 'package:dujo_website/view/pages/Login/Admin/classes_section/class_admin_panel-screen.dart';
+import 'package:dujo_website/view/pages/Login/Admin/pTA_section/pta_admin_panel.dart';
 import 'package:dujo_website/view/pages/web/admin/dujo_admin_teacher_list.dart';
 import 'package:dujo_website/view/pages/web/admin/events_updates.dart';
 import 'package:dujo_website/view/pages/web/admin/fees_bills.dart';
 import 'package:dujo_website/view/pages/web/admin/meeting_updates.dart';
 import 'package:dujo_website/view/pages/web/admin/notices_updates.dart';
-import 'package:dujo_website/view/pages/web/admin/pta_profile.dart';
 import 'package:dujo_website/view/pages/web/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -93,7 +93,7 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                    onTap: () {},
+                   
                                     text: "Teachers",
                                   )),
                             ),
@@ -109,7 +109,7 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Classes", onTap: () {})),
+                                      text: "Classes", )),
                             ),
                             InkWell(
                               onTap: () {
@@ -123,7 +123,7 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Notices", onTap: () {})),
+                                      text: "Notices",)),
                             ),
                             InkWell(
                               onTap: () {
@@ -137,7 +137,7 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Events", onTap: () {})),
+                                      text: "Events", )),
                             ),
                             InkWell(
                               onTap: () {
@@ -151,7 +151,7 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Fees & Bills", onTap: () {})),
+                                      text: "Fees & Bills", )),
                             ),
                             InkWell(
                               onTap: () {
@@ -165,21 +165,21 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Meetings", onTap: () {})),
+                                      text: "Meetings", )),
                             ),
                             InkWell(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => PtaMemberAdmin(),
+                                      builder: (context) => PtaMemberAdmin(id: widget.id),
                                     ));
                               },
                               child: Container(
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child:
-                                      CustomButton(text: "PTA", onTap: () {})),
+                                      CustomButton(text: "PTA", )),
                             ),
                             InkWell(
                               onTap: () {
@@ -193,7 +193,7 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Online classes", onTap: () {})),
+                                      text: "Online classes", )),
                             ),
                             InkWell(
                               onTap: () {
@@ -207,7 +207,7 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Recorded classes", onTap: () {})),
+                                      text: "Recorded classes", )),
                             ),
                           ],
                         ),
