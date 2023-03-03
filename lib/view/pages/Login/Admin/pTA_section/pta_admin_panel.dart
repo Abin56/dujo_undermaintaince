@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dujo_website/model/pTA_section/add_PTAMemberModel.dart';
 import 'package:dujo_website/model/pTA_section/pta_category_model.dart';
 import 'package:dujo_website/view/pages/Login/Admin/pTA_section/add_PTAMembers.dart';
 import 'package:dujo_website/view/pages/Login/Admin/pTA_section/add_PTA_Category.dart';
@@ -6,6 +7,9 @@ import 'package:dujo_website/view/pages/Login/Admin/pTA_section/sample.dart';
 import 'package:dujo_website/view/pages/web/widgets/custom_button.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../../controllers/Getx/pta_category_list/pta_category_memberslist.dart';
 
 class PtaMemberAdmin extends StatefulWidget {
   var id;
@@ -16,7 +20,10 @@ class PtaMemberAdmin extends StatefulWidget {
 }
 
 class _PtaMemberAdminState extends State<PtaMemberAdmin> {
-  bool _showContainer= false ;
+  final getxController = Get.put(PTACategoeyMembersList());
+  String name = '';
+  int lenth = 0;
+  bool _showContainer = false;
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -80,7 +87,7 @@ class _PtaMemberAdminState extends State<PtaMemberAdmin> {
                             stream: FirebaseFirestore.instance
                                 .collection("SchoolListCollection")
                                 .doc(widget.id)
-                                .collection("PTACategoryCollection")
+                                .collection("PTAMembersCollection")
                                 .snapshots(),
                             builder: (context, snapshots) {
                               return ListView.separated(
@@ -89,38 +96,49 @@ class _PtaMemberAdminState extends State<PtaMemberAdmin> {
                                         snapshots.data!.docs[index].data());
                                     return GestureDetector(
                                       onTap: () {
-                                        print('working');
-                                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                              SamplePage(),
-                              ),
-                            );
-                                        Stack(
-                                          children: [
-                                            Positioned(
-                                              top: 100,
-                                              bottom: 0,
-                                              right: 300,
-                                              left: 10,
-                                              child: Container(
-                                                height: 1000,
-                                                width: 500,
-                                                color: Colors.red,
-                                              ),
-                                            )
-                                          ],
+                                        // var memberData;
+                                        GetBuilder<PTACategoeyMembersList>(
+                                          init: getxController,
+                                          initState: (_) {},
+                                          builder: (_) {
+                                            return getxController
+                                                    .categoryCollections.isEmpty
+                                                ? const Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color: Colors.grey,
+                                                    ),
+                                                  )
+                                                : StreamBuilder(
+                                                    stream: getxController
+                                                        .getProduct(
+                                                            data.ptaCategory,
+                                                            widget.id),
+                                                    builder:
+                                                        (context, snapshotss) {
+                                                      final  memberData  = snapshotss.data![index];
+                                                      setState(() {
+                                                        name = memberData.userName;
+                                                        lenth = snapshotss.data!.length;
+                                                      });
+                                                      return Text('');
+                                                      
+                                                    },
+                                                  );
+                                          },
                                         );
                                         setState(() {
-                                          _showContainer =!_showContainer;
+                                          _showContainer = !_showContainer;
+                                          // name = memberData;
+                                          lenth = snapshots.data!.docs.length;
                                         });
                                       },
                                       child: Container(
                                         height: 50,
                                         width: 300,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(25),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
                                           boxShadow: const [
                                             BoxShadow(
                                                 color: Color.fromARGB(
@@ -129,9 +147,10 @@ class _PtaMemberAdminState extends State<PtaMemberAdmin> {
                                                 spreadRadius: 1,
                                                 offset: Offset(5, 5)),
                                           ],
-                                          color: Color.fromARGB(255, 1, 238, 255),
+                                          color:
+                                              Color.fromARGB(255, 1, 238, 255),
                                         ),
-                                        child:  Center(
+                                        child: Center(
                                             child: Text(data.ptaCategory)),
                                       ),
                                     );
@@ -260,91 +279,26 @@ class _PtaMemberAdminState extends State<PtaMemberAdmin> {
                                 width: 100,
                                 height: 100,
                                 child: Visibility(
-                                  visible:_showContainer,
+                                  visible: _showContainer,
                                   maintainSize: true,
                                   maintainAnimation: true,
                                   maintainState: true,
-                                  child:Text("hello") ,
+                                  child: ListView.separated(
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          color: Colors.red,
+                                          height: 100,
+                                          width: double.infinity,
+                                          child: Center(
+                                            child: Text(name),
+                                          ),
+                                        );
+                                      },
+                                      separatorBuilder: (context, index) {
+                                        return Divider();
+                                      },
+                                      itemCount: lenth),
                                 ),
-                              ),
-                              Text(
-                                "Members",
-                                style: TextStyle(
-                                    fontSize: 30, color: Colors.white),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                height: 100,
-                                width: 100,
-                                child: CircleAvatar(
-                                  radius: 60,
-                                  backgroundImage: NetworkImage(
-                                      'https://via.placeholder.com/150'),
-                                  backgroundColor: Colors.blue,
-                                ),
-                                color: Colors.transparent,
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Container(
-                                height: 50,
-                                width: 300,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Color.fromARGB(255, 50, 49, 61),
-                                        blurRadius: 2,
-                                        spreadRadius: 1,
-                                        offset: Offset(5, 5)),
-                                  ],
-                                  color: Color.fromARGB(255, 1, 238, 255),
-                                ),
-                                child: const Center(child: Text('Name')),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Container(
-                                height: 50,
-                                width: 300,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color: Color.fromARGB(255, 1, 238, 255),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Color.fromARGB(255, 50, 49, 61),
-                                        blurRadius: 2,
-                                        spreadRadius: 1,
-                                        offset: Offset(5, 5)),
-                                  ],
-                                ),
-                                child: const Center(child: Text('Address')),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Container(
-                                height: 50,
-                                width: 300,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Color.fromARGB(255, 50, 49, 61),
-                                        blurRadius: 2,
-                                        spreadRadius: 1,
-                                        offset: Offset(5, 5)),
-                                  ],
-                                  color: Color.fromARGB(255, 1, 238, 255),
-                                ),
-                                child: const Center(child: Text('mobile')),
-                              ),
-                              SizedBox(
-                                height: 30,
                               ),
                             ])),
                       ),
