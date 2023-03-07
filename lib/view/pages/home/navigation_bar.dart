@@ -1,9 +1,11 @@
 import 'package:dujo_website/view/pages/Login/Admin/admin_panel.dart';
 import 'package:dujo_website/view/pages/Login/loginScreen.dart';
+import 'package:dujo_website/view/pages/Login/schoolDrop_downlist/schoolDropDownList.dart';
 import 'package:flutter/material.dart';
 
 class NavigationBarWidget extends StatelessWidget {
-  const NavigationBarWidget({
+  TextEditingController schoolIdController = TextEditingController();
+  NavigationBarWidget({
     super.key,
     required this.screenSize,
   });
@@ -38,12 +40,46 @@ class NavigationBarWidget extends StatelessWidget {
             ),
             InkWell(
               hoverColor: const Color(0xFF26A69A),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return const LoginScreen();
+              onTap: () async {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false, // user must tap button!
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Enter Your School ID'),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[GetSchoolListDropDownButton()],
+                          // children: [
+                          //   // TextFormField(
+                          //   //   controller:schoolIdController,
+                          //   // )
+                          // ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('ok'),
+                          onPressed: () async {
+                            await Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return LoginScreen(
+                                  schoolID: schoolListValue!["id"],
+                                );
+                              },
+                            ));
+                          },
+                        ),
+                        TextButton(
+                          child: const Text('cancel'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
                   },
-                ));
+                );
               },
               child: const SizedBox(
                 height: 30,

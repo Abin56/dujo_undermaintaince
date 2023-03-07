@@ -12,16 +12,18 @@ import '../../../colors/colors.dart';
 import '../../../fonts/fonts.dart';
 import '../../../icons/icons.dart';
 
-class FacultyLoginScreen extends StatefulWidget {
-  const FacultyLoginScreen({Key? key}) : super(key: key);
+class FacultyLoginScreen extends StatelessWidget {
+  String schoolID;
+  TextEditingController idController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+   FacultyLoginScreen({
+    required this.schoolID,
+    Key? key}) : super(key: key);
 
-  @override
-  State<FacultyLoginScreen> createState() => _FacultyLoginScreenState();
-}
-
-class _FacultyLoginScreenState extends State<FacultyLoginScreen> {
   final TextEditingController _facultyController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -46,7 +48,7 @@ class _FacultyLoginScreenState extends State<FacultyLoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Faculty Login',
+                            'Class Teacher',
                             style: ralewayStyle.copyWith(
                               fontSize: 48.0,
                               color: AppColors.whiteColor,
@@ -112,7 +114,7 @@ class _FacultyLoginScreenState extends State<FacultyLoginScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0),
                         child: Text(
-                          'Email',
+                          'Teacher ID',
                           style: ralewayStyle.copyWith(
                             fontSize: 12.0,
                             color: AppColors.blueDarkColor,
@@ -129,7 +131,7 @@ class _FacultyLoginScreenState extends State<FacultyLoginScreen> {
                           color: AppColors.whiteColor,
                         ),
                         child: TextFormField(
-                          controller: _facultyController,
+                          controller: idController,
                           style: ralewayStyle.copyWith(
                             fontWeight: FontWeight.w400,
                             color: AppColors.blueDarkColor,
@@ -142,7 +144,7 @@ class _FacultyLoginScreenState extends State<FacultyLoginScreen> {
                               icon: Image.asset(AppIcons.emailIcon),
                             ),
                             contentPadding: const EdgeInsets.only(top: 16.0),
-                            hintText: 'Enter Email',
+                            hintText: 'Enter ID',
                             hintStyle: ralewayStyle.copyWith(
                               fontWeight: FontWeight.w400,
                               color: AppColors.blueDarkColor.withOpacity(0.5),
@@ -172,7 +174,7 @@ class _FacultyLoginScreenState extends State<FacultyLoginScreen> {
                           color: AppColors.whiteColor,
                         ),
                         child: TextFormField(
-                          controller: _passwordController,
+                          controller: passwordController,
                           style: ralewayStyle.copyWith(
                             fontWeight: FontWeight.w400,
                             color: AppColors.blueDarkColor,
@@ -219,11 +221,46 @@ class _FacultyLoginScreenState extends State<FacultyLoginScreen> {
                         color: Colors.transparent,
                         child: InkWell(
                           onTap: () async {
-                                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ClassTeacherAdmin(),
+
+
+                        //>>>>>>>>>>>>>>>>>Checking ID<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                          CollectionReference cat = FirebaseFirestore.instance
+                              .collection("SchoolListCollection").doc(schoolID).collection("Teachers");
+                          Query query = cat.where("employeeID",
+                              isEqualTo: idController.text.trim());
+                          QuerySnapshot querySnapshot = await query.get();
+                          final docData = querySnapshot.docs
+                              .map((doc) => doc.data())
+                              .toList();
+                          log(query.toString());
+                          log(docData.toString());
+                          //
+                          //>>>>>>>>>>>>>>>>>>>Checking password<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                          CollectionReference pass = FirebaseFirestore.instance
+                            .collection("SchoolListCollection").doc(schoolID).collection("Teachers");
+                          Query queries = pass.where("employeeID",
+                              isEqualTo: passwordController.text.trim());
+                          QuerySnapshot querySnapshott = await queries.get();
+                          final docDataa = querySnapshott.docs
+                              .map((doc) => doc.data())
+                              .toList();
+                          log(query.toString());
+                          log(docDataa.toString());
+
+                        
+                          if (docDataa.isNotEmpty && docData.isNotEmpty) {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return ClassTeacherAdmin(schoolID: schoolID);
+                              },
                             ));
+                            log('Correct password');
+                          } else {
+                            log('Wrong password');
+                          }
+
+
+                      
                             // //>>>>>>>>>>>>>>>>>Checking ID<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                             // CollectionReference cat = FirebaseFirestore.instance
                             //     .collection("FacultyProfiles");

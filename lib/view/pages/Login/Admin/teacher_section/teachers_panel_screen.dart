@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dujo_website/view/pages/web/admin/dujo_admin_teacher_list.dart';
 import 'package:dujo_website/view/pages/web/class_teacher/add_student.dart';
 import 'package:dujo_website/view/pages/web/class_teacher/class%20_notices.dart';
@@ -7,10 +8,18 @@ import 'package:dujo_website/view/pages/web/widgets/custom_dark_button.dart';
 import 'package:dujo_website/view/pages/web/widgets/custom_n_container.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../model/create_classModel/create_classModel.dart';
+
  
 
 class ClassTeacherAdmin extends StatefulWidget {
-  const ClassTeacherAdmin({super.key});
+  var schoolID;
+ 
+   ClassTeacherAdmin({
+   required this.schoolID,
+
+
+    super.key});
 
   @override
   State<ClassTeacherAdmin> createState() => _ClassTeacherAdminState();
@@ -74,7 +83,7 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AddStudentTea(),
+                                      builder: (context) => AddStudentTea(schoolID: widget.schoolID,),
                                     ));
                               },
                               child: Container(
@@ -206,102 +215,32 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                     ),
                     Container(
                       width: screenSize.width * 1 / 3,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              Container(
+                      child: Center(
+                        child: Container(
+                          height: 1000,
+                          width: double.infinity,
+                          child: StreamBuilder(
+                          stream: FirebaseFirestore.instance.collection("SchoolListCollection").doc(widget.schoolID).collection("Classes").snapshots(),
+                          builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                          return ListView.separated(
+                            itemBuilder: (context, index) {
+                              final data = AddClassesModel.fromJson(snapshot.data!.docs[index].data());
+                            return   SizedBox(
                                 height: screenSize.width * 1 / 13,
                                 width: screenSize.width * 1 / 6,
                                 child: CustomDarkButton(
-                                    text: "Student 1", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 2", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 3", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 3", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 4", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 5", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 6", onPressed: () {}),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 7", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 8", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 9", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 10", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 11", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 12", onPressed: () {}),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: "Student 13", onPressed: () {}),
-                              ),
-                            ],
-                          ),
-                        ],
+                                    text: data.className, onPressed: () {}),
+                              );
+                          }, separatorBuilder: (context, index) {
+                          return  Divider();
+                          }, itemCount:snapshot.data!.docs.length );
+                          
+                          }else{
+                          return Center(child: CircularProgressIndicator.adaptive(),);
+                          }
+                                            },),
+                        ),
                       ),
                     ),
                     Padding(

@@ -13,8 +13,8 @@ class FacultySectionScreen extends StatelessWidget {
     int columnCount = 3;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF26A69A),
-        title: const Text("Faculty Section"),
+        backgroundColor: Color.fromRGBO(38, 166, 154, 1),
+        title: const Text("Class Teacher Section"),
       ),
       body: SafeArea(
           child: AnimationLimiter(

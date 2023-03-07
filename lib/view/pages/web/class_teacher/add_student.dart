@@ -1,15 +1,18 @@
+import 'package:dujo_website/model/create_classModel/addStudent_model.dart';
+import 'package:dujo_website/view/pages/Login/Admin/teacher_section/get_classes.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_blue_button.dart';
 
-class AddStudentTea extends StatefulWidget {
-  const AddStudentTea({super.key});
+class AddStudentTea extends StatelessWidget {
+  var schoolID;
 
-  @override
-  State<AddStudentTea> createState() => _AddStudentTeaState();
-}
+  TextEditingController studentNameController = TextEditingController();
+  TextEditingController parentPhNoController = TextEditingController();
+  TextEditingController parentNameController = TextEditingController();
+  TextEditingController addmissionNumberController = TextEditingController();
+  AddStudentTea({this.schoolID, super.key});
 
-class _AddStudentTeaState extends State<AddStudentTea> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -28,6 +31,7 @@ class _AddStudentTeaState extends State<AddStudentTea> {
                 Padding(
                   padding: EdgeInsets.all(15),
                   child: TextField(
+                    controller: studentNameController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Name',
@@ -35,17 +39,12 @@ class _AddStudentTeaState extends State<AddStudentTea> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(15),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Admission Number',
-                    ),
-                  ),
-                ),
+                    padding: EdgeInsets.all(15),
+                    child: GetClassesListDropDownButton(schoolID: schoolID)),
                 Padding(
                   padding: EdgeInsets.all(15),
                   child: TextField(
+                    controller: parentNameController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Guardian Name',
@@ -55,18 +54,51 @@ class _AddStudentTeaState extends State<AddStudentTea> {
                 Padding(
                   padding: EdgeInsets.all(15),
                   child: TextField(
+                    controller: parentPhNoController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Guardian Phone Number',
                     ),
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: TextField(
+                    controller: addmissionNumberController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'AdmissionNumber',
+                    ),
+                  ),
+                ),
                 Container(
                   height: screenSize.width * 1 / 15,
                   width: 400,
-                  child: CustomBlueButton(
-                    text: "Update",
-                    onPressed: () {},
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 3, 39, 68),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: () async {
+                      final studentDetails = AddStudentsModel(
+                          id: addmissionNumberController.text.trim(),
+                          studentName: studentNameController.text.trim(),
+                          wclass: classesListValue!["id"],
+                          admissionNumber:
+                              addmissionNumberController.text.trim(),
+                          parentName: parentNameController.text.trim(),
+                          parentPhNo: parentPhNoController.text.trim(),
+                          joinDate: DateTime.now().toString());
+
+                      await AddStudentsToFireBase().addStudentsController(
+                          studentDetails,
+                          context,
+                          schoolID,
+                          classesListValue!["id"]);
+                    },
+                    child: Text("Add Student"),
                   ),
                 ),
               ]),

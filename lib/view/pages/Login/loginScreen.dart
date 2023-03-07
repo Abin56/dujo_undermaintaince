@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:developer';
+
 import 'package:dujo_website/view/pages/Login/students/students_login_screen.dart';
 import 'package:dujo_website/view/pages/widgets/button_container_widget.dart';
 import 'package:dujo_website/view/pages/widgets/responsive.dart';
@@ -11,7 +13,8 @@ import 'Admin/admin_login_screen.dart';
 import 'faculty/faculty_login_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  String schoolID;
+  LoginScreen({required this.schoolID, Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -20,6 +23,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    log(widget.schoolID);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -78,7 +82,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return const FacultyLoginScreen();
+                          return FacultyLoginScreen(
+                            schoolID: widget.schoolID,
+                          );
                         },
                       ));
                     },
@@ -86,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         curving: 30,
                         // ignore: sort_child_properties_last
                         child: Center(
-                          child: Text("Faculty Login",
+                          child: Text("Class Teacher Login",
                               style: GoogleFont.subHeadTextStyle),
                         ),
                         colorindex: 1,
@@ -97,7 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return const AdminLoginScreen();
+                          return AdminLoginScreen(
+                            schoolID: widget.schoolID,
+                          );
                         },
                       ));
                     },

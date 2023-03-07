@@ -16,7 +16,8 @@ import '../../web/admin/admin_pannel_main.dart';
 import 'admin_panel.dart';
 
 class AdminLoginScreen extends StatefulWidget {
-  const AdminLoginScreen({Key? key}) : super(key: key);
+  String schoolID;
+   AdminLoginScreen({required this.schoolID, Key? key}) : super(key: key);
 
   @override
   State<AdminLoginScreen> createState() => _AdminLoginScreenState();
