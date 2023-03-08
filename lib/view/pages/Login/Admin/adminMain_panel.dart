@@ -1,5 +1,11 @@
+
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dujo_website/view/pages/Login/Admin/classes_section/class_admin_panel-screen.dart';
 import 'package:dujo_website/view/pages/Login/Admin/pTA_section/pta_admin_panel.dart';
+import 'package:dujo_website/view/pages/Login/Admin/teacher_section/class_attendence_status.dart';
+import 'package:dujo_website/view/pages/Login/Admin/teacher_section/dated_attence.dart';
 import 'package:dujo_website/view/pages/web/admin/dujo_admin_teacher_list.dart';
 import 'package:dujo_website/view/pages/web/admin/events_updates.dart';
 import 'package:dujo_website/view/pages/web/admin/fees_bills.dart';
@@ -9,12 +15,13 @@ import 'package:dujo_website/view/pages/web/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../../../model/create_classModel/create_classModel.dart';
 import '../../Login/Admin/teacher_section/add_teacher.dart';
-
 
 class AdminPage extends StatefulWidget {
   var id;
-   AdminPage(  { required this.id,  Key? key}) : super(key: key);
+
+  AdminPage({required this.id, Key? key}) : super(key: key);
 
   @override
   State<AdminPage> createState() => _AdminPageState();
@@ -30,8 +37,10 @@ class _AdminPageState extends State<AdminPage> {
   ];
   bool __showContainer = false;
   bool _showContainer = false;
+ 
   @override
   Widget build(BuildContext context) {
+     String classID ='';
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
@@ -39,7 +48,7 @@ class _AdminPageState extends State<AdminPage> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            color: Color(0xFF26A69A),
+            color: Color(0XFFE8EAF6),
             alignment: Alignment.topCenter,
             child: Column(
               children: [
@@ -47,8 +56,8 @@ class _AdminPageState extends State<AdminPage> {
                   decoration: BoxDecoration(
                       // color: Colors.blue,
                       gradient: LinearGradient(colors: [
-                        Color(0xFF26A69A),
-                        Color.fromARGB(255, 9, 49, 45),
+                        Color.fromARGB(255, 191, 212, 209),
+                        Color.fromARGB(255, 191, 212, 209),
                       ], begin: Alignment.bottomLeft, end: Alignment.topRight),
                       border: Border.all(width: 2, color: Colors.white)),
                   height: 50,
@@ -86,14 +95,15 @@ class _AdminPageState extends State<AdminPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AdminTeachersPanelScreen(id: widget.id),
+                                      builder: (context) =>
+                                          AdminTeachersPanelScreen(
+                                              id: widget.id),
                                     ));
                               },
                               child: Container(
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                   
                                     text: "Teachers",
                                   )),
                             ),
@@ -102,14 +112,16 @@ class _AdminPageState extends State<AdminPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AdminClasses(id: widget.id),
+                                      builder: (context) =>
+                                          AdminClasses(id: widget.id),
                                     ));
                               },
                               child: Container(
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Classes", )),
+                                    text: "Classes",
+                                  )),
                             ),
                             InkWell(
                               onTap: () {
@@ -123,7 +135,8 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Notices",)),
+                                    text: "Notices",
+                                  )),
                             ),
                             InkWell(
                               onTap: () {
@@ -137,7 +150,8 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Events", )),
+                                    text: "Events",
+                                  )),
                             ),
                             InkWell(
                               onTap: () {
@@ -151,7 +165,8 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Fees & Bills", )),
+                                    text: "Fees & Bills",
+                                  )),
                             ),
                             InkWell(
                               onTap: () {
@@ -165,21 +180,24 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Meetings", )),
+                                    text: "Meetings",
+                                  )),
                             ),
                             InkWell(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => PtaMemberAdmin(id: widget.id),
+                                      builder: (context) =>
+                                          PtaMemberAdmin(id: widget.id),
                                     ));
                               },
                               child: Container(
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
-                                  child:
-                                      CustomButton(text: "PTA", )),
+                                  child: CustomButton(
+                                    text: "PTA",
+                                  )),
                             ),
                             InkWell(
                               onTap: () {
@@ -193,7 +211,8 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Online classes", )),
+                                    text: "Online classes",
+                                  )),
                             ),
                             InkWell(
                               onTap: () {
@@ -207,335 +226,76 @@ class _AdminPageState extends State<AdminPage> {
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
-                                      text: "Recorded classes", )),
+                                    text: "Recorded classes",
+                                  )),
                             ),
                           ],
                         ),
                       ),
                     ),
                     Container(
-                      width: screenSize.width * 1 / 3,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
+                      width: screenSize.width * 0.2,
+                      height: screenSize.width * 1 / 5,
+                      child: Expanded(
+                        child: StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection("SchoolListCollection")
+                              .doc(widget.id)
+                              .collection("Classes")
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return ListView.separated(
+                                  padding: EdgeInsets.all(20),
+                                  itemBuilder: (context, index) {
+                                    final data = AddClassesModel.fromJson(
+                                        snapshot.data!.docs[index].data());
+                                     
+                                    return GestureDetector(
+                                      onTap: () {
+                                        log(widget.id);
+                                            log(widget.id);
+                                                log(data.id);
+                                        Navigator.push(context,
+                                            MaterialPageRoute(
+                                          builder: (context) {
+                                            return AttendenceDetailsScreen(
+                                                schoolId: widget.id,
+                                                classID: data.classID,
+                                                  );
+                                          },
+                                        ));
                                       },
-                                      child: Text("LKG"),
-                                    )),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Color.fromARGB(
+                                               151, 141, 146, 141),
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
+                                        height: 100,
+                                        child: Center(
+                                            child: Text(
+                                          data.className,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                              color: Colors.white),
+                                        )),
                                       ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("UKG"),
-                                    )),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("Class 1"),
-                                    )),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("Class 2"),
-                                    )),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("Class 3"),
-                                    )),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("Class 4"),
-                                    )),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("Class 5"),
-                                    )),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              // ignore: sized_box_for_whitespace
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("Class 6"),
-                                    )),
-                              ),
-                              // ignore: sized_box_for_whitespace
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("Class 7"),
-                                    )),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("Class 8"),
-                                    )),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("Class 9"),
-                                    )),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("Class 10"),
-                                    )),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Color.fromARGB(255, 33, 243, 166),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: const Text("Class 11"),
-                                    )),
-                              ),
-                              Container(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.blue,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          __showContainer = !__showContainer;
-                                        });
-                                      },
-                                      child: Text("Class 12"),
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ],
+                                    );
+                                    
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return const Divider();
+                                  },
+                                  itemCount: snapshot.data!.docs.length);
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator.adaptive(),
+                              );
+                            }
+                          },
+                        ),
                       ),
                     ),
                     Column(children: [

@@ -26,6 +26,7 @@ class FacultyLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(schoolID);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(

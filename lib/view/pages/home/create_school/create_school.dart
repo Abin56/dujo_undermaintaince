@@ -127,7 +127,7 @@ class _SchoolProfileState extends State<SchoolProfile> {
                     ),
                     onPressed: () {
                       final schoolDetails = CreatedSchoolAddModel(
-                          id: schoolID,
+                          id: adminUserNameController.text.trim() + schoolID,
                           schoolName: schoolNameController.text.trim(),
                           schoolID: adminUserNameController.text.trim() + schoolID,
                           district: cityValue.toString(),

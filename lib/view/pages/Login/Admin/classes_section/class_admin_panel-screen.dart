@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 class AdminClasses extends StatelessWidget {
   var id;
-  AdminClasses({required this.id, super.key});
+   AdminClasses({required this.id, super.key});
 
   @override
   Widget build(BuildContext context) {
