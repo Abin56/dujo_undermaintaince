@@ -6,12 +6,13 @@ import '../widgets/custom_blue_button.dart';
 
 class AddStudentTea extends StatelessWidget {
   var schoolID;
+    var teacherID;
 
   TextEditingController studentNameController = TextEditingController();
   TextEditingController parentPhNoController = TextEditingController();
   TextEditingController parentNameController = TextEditingController();
   TextEditingController addmissionNumberController = TextEditingController();
-  AddStudentTea({this.schoolID, super.key});
+  AddStudentTea({this.schoolID,required this.teacherID, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class AddStudentTea extends StatelessWidget {
                 ),
                 Padding(
                     padding: EdgeInsets.all(15),
-                    child: GetClassesListDropDownButton(schoolID: schoolID)),
+                    child: GetClassesListDropDownButton(schoolID: schoolID,teacherID:teacherID ,)),
                 Padding(
                   padding: EdgeInsets.all(15),
                   child: TextField(

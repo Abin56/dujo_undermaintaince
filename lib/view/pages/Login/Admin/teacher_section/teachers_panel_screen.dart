@@ -14,9 +14,11 @@ import '../../../../../model/create_classModel/create_classModel.dart';
 
 class ClassTeacherAdmin extends StatefulWidget {
   var schoolID;
+   var teacherID;
  
    ClassTeacherAdmin({
    required this.schoolID,
+   required this.teacherID,
 
 
     super.key});
@@ -83,7 +85,7 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AddStudentTea(schoolID: widget.schoolID,),
+                                      builder: (context) => AddStudentTea(schoolID: widget.schoolID,teacherID: widget.teacherID),
                                     ));
                               },
                               child: Container(

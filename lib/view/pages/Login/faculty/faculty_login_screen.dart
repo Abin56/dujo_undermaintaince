@@ -252,7 +252,7 @@ class FacultyLoginScreen extends StatelessWidget {
                           if (docDataa.isNotEmpty && docData.isNotEmpty) {
                             Navigator.push(context, MaterialPageRoute(
                               builder: (context) {
-                                return ClassTeacherAdmin(schoolID: schoolID);
+                                return ClassTeacherAdmin(schoolID: schoolID,teacherID:idController.text.trim() ,);
                               },
                             ));
                             log('Correct password');

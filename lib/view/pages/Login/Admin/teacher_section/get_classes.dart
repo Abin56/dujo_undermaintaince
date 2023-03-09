@@ -2,14 +2,16 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 var classesListValue;
 
 class GetClassesListDropDownButton extends StatefulWidget {
   var schoolID;
-   GetClassesListDropDownButton({
-    required this.schoolID,
-    Key? key}) : super(key: key);
+  var teacherID;
+  GetClassesListDropDownButton(
+      {required this.schoolID, required this.teacherID, Key? key})
+      : super(key: key);
 
   @override
   State<GetClassesListDropDownButton> createState() =>
@@ -23,13 +25,14 @@ class _GeClasseslListDropDownButtonState
     return dropDownButton();
   }
 
-  StreamBuilder<QuerySnapshot<Map<String, dynamic>>> dropDownButton() {
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection("SchoolListCollection").doc(widget.schoolID).collection("Classes")
-            .snapshots(),
-        builder: (context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+  FutureBuilder<QuerySnapshot<Map<String, dynamic>>> dropDownButton() {
+    return FutureBuilder(
+        future: FirebaseFirestore.instance
+            .collection("SchoolListCollection")
+            .doc(widget.schoolID)
+            .collection("Classes")
+            .where('classIncharge',isEqualTo: widget.teacherID).get(),
+        builder: (context, snapshot) {
           if (snapshot.hasData) {
             return DropdownButtonFormField(
               hint: classesListValue == null
@@ -41,11 +44,13 @@ class _GeClasseslListDropDownButtonState
                   : Text(classesListValue!["className"]),
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.transparent, width: 0.5),
+                  borderSide:
+                      const BorderSide(color: Colors.transparent, width: 0.5),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 border: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.transparent, width: 0.5),
+                  borderSide:
+                      const BorderSide(color: Colors.transparent, width: 0.5),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 filled: true,
