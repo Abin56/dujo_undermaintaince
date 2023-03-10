@@ -9,6 +9,8 @@ import 'package:dujo_website/view/pages/web/widgets/custom_n_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../model/create_classModel/create_classModel.dart';
+import 'add_guardian/add_guardian_screen.dart';
+import 'add_parent/add_parents.dart';
 
  
 
@@ -101,14 +103,28 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => UpdateStudentTea(),
+                                      builder: (context) => AddStudentParents(id: widget.schoolID),
                                     ));
                               },
                               child: Container(
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
                                   child: CustomNewContainer(
-                                      text: "Update Student", onTap: () {})),
+                                      text: "Add Parents", onTap: () {})),
+                            ),
+                              InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AddStudentGuardian(id: widget.schoolID),
+                                    ));
+                              },
+                              child: Container(
+                                  height: screenSize.width * 1 / 13,
+                                  width: screenSize.width * 1 / 3,
+                                  child: CustomNewContainer(
+                                      text: "Add Guradian", onTap: () {})),
                             ),
                             InkWell(
                               onTap: () {

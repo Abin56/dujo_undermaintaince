@@ -1,19 +1,21 @@
 import 'package:dujo_website/model/teacher/add_teacher.dart';
 import 'package:dujo_website/view/pages/Login/Admin/teacher_section/get_classes.dart';
+import 'package:dujo_website/view/pages/Login/Admin/teacher_section/selectClass_.dart';
 import 'package:flutter/material.dart';
 
-import '../../Login/Admin/teacher_section/selectClass_.dart';
-import '../widgets/custom_blue_button.dart';
+import '../../../../../../model/teacher/add_Studuent_parent.dart';
+import '../../../../../../model/teacher/add_guardian.dart';
 
-class AddTeacher extends StatefulWidget {
+
+class AddStudentParents extends StatefulWidget {
   var id;
-  AddTeacher({this.id, super.key});
+  AddStudentParents({this.id, super.key});
 
   @override
-  State<AddTeacher> createState() => _AddTeacherState();
+  State<AddStudentParents> createState() => _AddStudentParentsState();
 }
 
-class _AddTeacherState extends State<AddTeacher> {
+class _AddStudentParentsState extends State<AddStudentParents> {
   TextEditingController teacherName = TextEditingController();
   TextEditingController classIncharge = TextEditingController();
   TextEditingController employeeID = TextEditingController();
@@ -22,7 +24,7 @@ class _AddTeacherState extends State<AddTeacher> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 27, 95, 88),
-      appBar: AppBar(title: const Text('ADD TEACHER')),
+      appBar: AppBar(title: const Text('ADD PARENTS')),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(top: screenSize.width * 1 / 9),
@@ -38,7 +40,7 @@ class _AddTeacherState extends State<AddTeacher> {
                     controller: teacherName,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Name',
+                      labelText: 'Parent Name',
                     ),
                   ),
                 ),
@@ -52,7 +54,7 @@ class _AddTeacherState extends State<AddTeacher> {
                     controller: employeeID,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Employee ID',
+                      labelText: 'Student AdmissionNumber',
                     ),
                   ),
                 ),
@@ -68,16 +70,16 @@ class _AddTeacherState extends State<AddTeacher> {
                     ),
                     onPressed: () async {
                       print('adf');
-                      final teacherDetails = AddTeachersModel(
+                      final parentsDetails = AddStudentParentModel(
                           id: employeeID.text.trim(),
                           teacherName: teacherName.text.trim(),
                           classIncharge: classIDListValue!["classID"],
                           employeeID: employeeID.text.trim(),
                           joinDate: DateTime.now().toString());
-                      CreateTeachersAddToFireBase().createSchoolController(
-                          teacherDetails, context, widget.id);
+                      CreateParentAddToFireBase().createParentController(
+                          parentsDetails, context, widget.id);
                     },
-                    child: const Text("Add Teacher"),
+                    child: const Text("Add Parent"),
                   ),
                 )
               ]),
