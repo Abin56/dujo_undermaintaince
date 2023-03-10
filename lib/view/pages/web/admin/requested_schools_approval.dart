@@ -1,3 +1,4 @@
+import 'package:dujo_website/view/pages/web/admin/requested_schools_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -8,7 +9,8 @@ class RequestedSchoolsApproval extends StatelessWidget {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( 
+      appBar: AppBar(title: Text('School Requests Pending for approval' ),),
       body: StreamBuilder(
         stream: _firestore.collection('RequestedSchools').snapshots(),
         builder: ((context, snapshot) { 
@@ -21,8 +23,18 @@ class RequestedSchoolsApproval extends StatelessWidget {
               return ListView.builder(
               itemCount: documents.length,
               itemBuilder: (context, index){
-                return ListTile(
-                  title: Text(documents[index]['schoolName']),
+                return ListTile( 
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: ((context) => RequestedSchoolsMainScreen())));
+                  },
+                  leading: Container(
+                    width: 50,
+                    child: Text('${documents[index]['schoolID']}')),
+                  title: Text(documents[index]['schoolName']), 
+                  subtitle: Text('${documents[index]['district']},${documents[index]['place']}, Phone:${documents[index]['phoneNumber']}'),
+                  trailing: TextButton(onPressed: (){
+
+                  }, child: Text('Approve'))
                 );
             }); 
             
