@@ -14,7 +14,7 @@ class SchoolsToBeVerified {
   String phoneNumber; 
   String email;
   String postedDate;
-
+  bool verified;
 
   SchoolsToBeVerified({
     required this.schoolName,
@@ -27,6 +27,7 @@ class SchoolsToBeVerified {
     required this.phoneNumber,
     required this.email,
     required this.postedDate,
+    required this.verified
   }); 
 
   
@@ -41,7 +42,8 @@ class SchoolsToBeVerified {
         password: json["password"] ?? '',
         postedDate: json["postedDate"] ?? '', 
         email: json["email"] ?? '',
-        phoneNumber: json["phoneNumber"]?? ''
+        phoneNumber: json["phoneNumber"]?? '',  
+        verified: json["verified"]?? ''
       );
 
   Map<String, dynamic> toJson() => {
@@ -54,7 +56,8 @@ class SchoolsToBeVerified {
         "password": password,
         "postedDate": postedDate, 
         "email": email, 
-        "phoneNumber": phoneNumber
+        "phoneNumber": phoneNumber, 
+        "verified": verified
       };
 }
   

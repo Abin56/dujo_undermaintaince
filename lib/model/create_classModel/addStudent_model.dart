@@ -63,10 +63,10 @@ class AddStudentsToFireBase {
           .collection("SchoolListCollection")
           .doc(schoolid)
           .collection("Classes")
-          .doc(classId)
-          .collection(classId)
-          .doc(productModel.admissionNumber)
-          .set(productModel.toJson())
+          .doc(classId).collection('Students').doc(productModel.admissionNumber).set(productModel.toJson())
+          // .collection(classId)
+          // .doc(productModel.admissionNumber)
+          // .set(productModel.toJson())
           .then(
         (value) {
           return showDialog(

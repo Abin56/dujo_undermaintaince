@@ -157,7 +157,7 @@ class _SchoolProfileState extends State<SchoolProfile> {
                         place: placeController.text.trim(), 
                         adminUserName: adminUserNameController.text.trim(),
                          password: adminPasswordController.text.trim(),
-                          phoneNumber: phoneNumberController.text, email: emailController.text, postedDate: DateTime.now().toString()); 
+                          phoneNumber: phoneNumberController.text, email: emailController.text, postedDate: DateTime.now().toString(),verified: false); 
 
                           AddRequestedSchoolsToFirebase().addRequestedSchools(schoolDetails, context);
                       // final schoolDetails = CreatedSchoolAddModel(
