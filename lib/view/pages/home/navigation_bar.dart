@@ -1,8 +1,11 @@
 import 'package:dujo_website/view/pages/Login/Admin/admin_panel.dart';
+import 'package:dujo_website/view/pages/Login/Admin/guardian-section/guardian_panel.dart';
+import 'package:dujo_website/view/pages/Login/Admin/parents-section/parent_panel.dart';
 import 'package:dujo_website/view/pages/Login/loginScreen.dart';
 import 'package:dujo_website/view/pages/Login/schoolDrop_downlist/schoolDropDownList.dart';
+import 'package:dujo_website/view/pages/web/admin/student_crud/students_panel.dart';
 import 'package:flutter/material.dart';
-import 'package:dujo_website/view/pages/web/admin/requested_schools_approval.dart';
+import 'package:dujo_website/view/pages/web/admin/requested_schools_approval.dart'; 
 
 class NavigationBarWidget extends StatelessWidget {
   TextEditingController schoolIdController = TextEditingController();
@@ -41,7 +44,7 @@ class NavigationBarWidget extends StatelessWidget {
               width: screenSize.width * 0.6,
             ), GestureDetector( 
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: ((context) => RequestedSchoolsApproval())));
+                Navigator.push(context, MaterialPageRoute(builder: ((context) =>RequestedSchoolsApproval())));
               }, 
               
               child: Text(

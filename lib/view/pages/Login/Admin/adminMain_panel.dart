@@ -3,7 +3,9 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dujo_website/view/pages/Login/Admin/classes_section/class_admin_panel-screen.dart';
+import 'package:dujo_website/view/pages/Login/Admin/guardian-section/guardian_panel.dart';
 import 'package:dujo_website/view/pages/Login/Admin/pTA_section/pta_admin_panel.dart';
+import 'package:dujo_website/view/pages/Login/Admin/parents-section/parent_panel.dart';
 import 'package:dujo_website/view/pages/Login/Admin/teacher_section/class_attendence_status.dart';
 import 'package:dujo_website/view/pages/Login/Admin/teacher_section/dated_attence.dart';
 import 'package:dujo_website/view/pages/web/admin/dujo_admin_teacher_list.dart';
@@ -11,6 +13,7 @@ import 'package:dujo_website/view/pages/web/admin/events_updates.dart';
 import 'package:dujo_website/view/pages/web/admin/fees_bills.dart';
 import 'package:dujo_website/view/pages/web/admin/meeting_updates.dart';
 import 'package:dujo_website/view/pages/web/admin/notices_updates.dart';
+import 'package:dujo_website/view/pages/web/admin/student_crud/students_panel.dart';
 import 'package:dujo_website/view/pages/web/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -105,6 +108,39 @@ class _AdminPageState extends State<AdminPage> {
                                   width: screenSize.width * 1 / 3,
                                   child: CustomButton(
                                     text: "Teachers",
+                                  )),
+                            ), 
+                              InkWell(
+                              onTap: () {
+                                
+                              },
+                              child: Container(
+                                  height: screenSize.width * 1 / 13,
+                                  width: screenSize.width * 1 / 3,
+                                  child: CustomButton(
+                                    text: "Students",
+                                  )),
+                            ),
+                             InkWell(
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: ((context) => AdminGuardiansPanelScreen(id: widget.id))));
+                              },
+                              child: Container(
+                                  height: screenSize.width * 1 / 13,
+                                  width: screenSize.width * 1 / 3,
+                                  child: CustomButton(
+                                    text: "Guardians",
+                                  )),
+                            ),
+                             InkWell(
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: ((context) => AdminParentPanelSCreen(id: widget.id,))));
+                              },
+                              child: Container(
+                                  height: screenSize.width * 1 / 13,
+                                  width: screenSize.width * 1 / 3,
+                                  child: CustomButton(
+                                    text: "Parents",
                                   )),
                             ),
                             InkWell(

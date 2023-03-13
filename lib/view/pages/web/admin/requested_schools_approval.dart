@@ -34,7 +34,9 @@ class RequestedSchoolsApproval extends StatelessWidget {
                   subtitle: Text('${documents[index]['district']},${documents[index]['place']}, Phone:${documents[index]['phoneNumber']}'),
                   trailing: TextButton(onPressed: (){
 
-                  }, child: Text('Approve'))
+                  }, child: TextButton(onPressed: (){
+                    FirebaseFirestore.instance.collection('SchoolListCollection').add(documents[index].data());
+                  },child: Text('Approve')))
                 );
             }); 
             
