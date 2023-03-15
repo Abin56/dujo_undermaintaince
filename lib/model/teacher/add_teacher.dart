@@ -20,6 +20,8 @@ class AddTeachersModel {
     required this.classIncharge,
     required this.employeeID,
     required this.joinDate,
+    required this.teacherPhNo,
+    required this.teacherEmail,
   });
 
   String teacherName;
@@ -27,6 +29,8 @@ class AddTeachersModel {
   String id;
   String employeeID;
   String joinDate;
+  String teacherPhNo;
+  String teacherEmail;
 
   factory AddTeachersModel.fromJson(Map<String, dynamic> json) =>
       AddTeachersModel(
@@ -35,14 +39,18 @@ class AddTeachersModel {
         classIncharge: json["classIncharge"] ?? '',
         joinDate: json["joinDate"] ?? '',
         employeeID: json["employeeID"] ?? '',
+        teacherPhNo: json["teacherPhNo"] ?? '',
+        teacherEmail: json["teacherEmail"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "teacherName": teacherName,
-        "classIncharge": classIncharge,
-        "employeeID": employeeID,
         "joinDate": joinDate,
+        "classIncharge": classIncharge,
+        "teacherPhNo": teacherPhNo,
+        "employeeID": employeeID,
+        "teacherEmail": teacherEmail,
       };
 }
 
@@ -55,7 +63,7 @@ class CreateTeachersAddToFireBase {
           .collection("SchoolListCollection")
           .doc(id)
           .collection("Teachers")
-          .doc(productModel.employeeID)
+          .doc(productModel.teacherEmail)
           .set(productModel.toJson())
           .then(
         (value) {

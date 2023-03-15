@@ -17,6 +17,8 @@ class _AddTeacherState extends State<AddTeacher> {
   TextEditingController teacherName = TextEditingController();
   TextEditingController classIncharge = TextEditingController();
   TextEditingController employeeID = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -29,7 +31,7 @@ class _AddTeacherState extends State<AddTeacher> {
           child: Center(
             child: Container(
               color: Colors.white,
-              height: screenSize.width * 1 / 4,
+              height: screenSize.width * 1 / 2,
               width: screenSize.width * 1 / 4,
               child: Column(children: [
                 Padding(
@@ -38,14 +40,34 @@ class _AddTeacherState extends State<AddTeacher> {
                     controller: teacherName,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Name',
+                      labelText: 'Teacher Name',
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(15),
-                  child: GetClassTeacherListDropDownButton(schooID: widget.id)
+                  child: TextField(
+                    controller: phoneNumberController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Teacher PhNo',
+                    ),
+                  ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Teacher email',
+                    ),
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.all(15),
+                    child:
+                        GetClassTeacherListDropDownButton(schooID: widget.id)),
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: TextField(
@@ -69,9 +91,11 @@ class _AddTeacherState extends State<AddTeacher> {
                     onPressed: () async {
                       print('adf');
                       final teacherDetails = AddTeachersModel(
-                          id: employeeID.text.trim(),
+                          teacherEmail: emailController.text.trim(),
+                          teacherPhNo: phoneNumberController.text.trim(),
+                          id: emailController.text.trim(),
                           teacherName: teacherName.text.trim(),
-                          classIncharge: classIDListValue!["classID"],
+                          classIncharge: classIDListValue!["classID"]??'',
                           employeeID: employeeID.text.trim(),
                           joinDate: DateTime.now().toString());
                       CreateTeachersAddToFireBase().createSchoolController(

@@ -9,12 +9,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class AdminParentPanelSCreen extends StatelessWidget {
-   AdminParentPanelSCreen({super.key, required this.id}); 
+  AdminParentPanelSCreen({super.key, required this.id});
 
   var id;
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
@@ -55,26 +55,28 @@ class AdminParentPanelSCreen extends StatelessWidget {
                             stream: FirebaseFirestore.instance
                                 .collection("SchoolListCollection")
                                 .doc(id)
-                                .collection("Students_Parents") 
+                                .collection("Students_Parents")
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return ListView.separated(
                                     itemBuilder: (context, index) {
-                                    
                                       final data = ParentModel.fromJson(
                                           snapshot.data!.docs[index].data());
-                                          
+
                                       return InkWell(
-                                        onTap: () async { 
-                                          await showParentDetails(context: context, parentmodel: data, id: id);
+                                        onTap: () async {
+                                          await showParentDetails(
+                                              context: context,
+                                              parentmodel: data,
+                                              id: id);
                                           // await showGuardianDetails(
-                                          //     context: context, 
+                                          //     context: context,
                                           //     id:id,
                                           //     // guardianID: data.guardianID,
                                           //     // guardianName: data.guardianName,
                                           //     // joinDaTE: data.joinDate,
-                                          //     // classIncarge: data.classIncharge); 
+                                          //     // classIncarge: data.classIncharge);
                                           //     guardianModel: data);
                                         },
                                         child: Container(
@@ -111,7 +113,7 @@ class AdminParentPanelSCreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (BuildContext context) =>
-                              AddParent(schoolID: id),
+                                  AddParent(schoolID: id),
                             ),
                           );
                         },
@@ -179,33 +181,50 @@ class AdminParentPanelSCreen extends StatelessWidget {
       ),
     );
   }
-} 
+}
 
 showParentDetails(
-    {required context,
-    required ParentModel parentmodel, required id}) async {
+    {required context, required ParentModel parentmodel, required id}) async {
   return showDialog(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Guardian Details'), 
-        actions: [ 
-           TextButton(child: Text('EDIT'), onPressed: (){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => EditParentDetails(model: parentmodel, id: id,))));
-          
-          },), 
-           TextButton(child: Text('REMOVE'), onPressed: (){
-            FirebaseFirestore.instance.collection('SchoolListCollection').doc(id).collection('Students_Parents').doc(parentmodel.parentID).delete();
-            Navigator.pop(context);
-          },),
-          TextButton(child: Text('OK'), onPressed: (){
-            Navigator.pop(context);
-          },)
-        ],
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+            title: const Text('Guardian Details'),
+            actions: [
+              TextButton(
+                child: Text('EDIT'),
+                onPressed: () {
+                  // Navigator.pushReplacement(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: ((context) => EditParentDetails(
+                  //               model: parentmodel,
+                  //               id: id,
+                  //             ))));
+                },
+              ),
+              TextButton(
+                child: Text('REMOVE'),
+                onPressed: () {
+                  FirebaseFirestore.instance
+                      .collection('SchoolListCollection')
+                      .doc(id)
+                      .collection('Students_Parents')
+                      .doc(parentmodel.parentEmail)
+                      .delete();
+                  Navigator.pop(context);
+                },
+              ),
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
+            content: SingleChildScrollView(
+                child: ListBody(children: <Widget>[
               Row(
                 children: [
                   Text('Name :'),
@@ -215,17 +234,19 @@ showParentDetails(
               Row(
                 children: [
                   Text('ID :'),
-                  Text(parentmodel.parentID),
                 ],
               ),
               Row(
                 children: [
                   Text('ClassIncharge :'),
-                  Text(parentmodel.classIncharge),
                 ],
               ),
               Row(
                 children: [
                   Text('Date :'),
                   Text(parentmodel.joinDate),
-                ],)])));});}
+                ],
+              )
+            ])));
+      });
+}

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dujo_website/model/guardian/guardian_model.dart';
 import 'package:dujo_website/view/pages/Login/Admin/guardian-section/add_guardian.dart';
@@ -103,6 +105,7 @@ class AdminGuardiansPanelScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       child: InkWell(
                         onTap: () {
+                          log("Going to Guadian");
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -215,7 +218,6 @@ showGuardianDetails(
               Row(
                 children: [
                   Text('ClassIncharge :'),
-                  Text(guardianModel.classIncharge),
                 ],
               ),
               Row(

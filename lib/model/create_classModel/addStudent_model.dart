@@ -16,6 +16,7 @@ String AddStudentsModelToJson(AddStudentsModel data) =>
 class AddStudentsModel {
   AddStudentsModel({
     required this.id,
+    required this.studentemailController,
     required this.studentName,
     required this.wclass,
     required this.admissionNumber,
@@ -31,6 +32,7 @@ class AddStudentsModel {
   String parentName;
   String parentPhNo;
   String joinDate;
+  String studentemailController;
 
   factory AddStudentsModel.fromJson(Map<String, dynamic> json) =>
       AddStudentsModel(
@@ -41,6 +43,7 @@ class AddStudentsModel {
         admissionNumber: json["admissionNumber"] ?? '',
         parentName: json["parentName"] ?? '',
         parentPhNo: json["parentPhNo"] ?? '',
+        studentemailController: json["studentemailController"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -51,6 +54,7 @@ class AddStudentsModel {
         "parentName": parentName,
         "parentPhNo": parentPhNo,
         "joinDate": joinDate,
+        "studentemailController": studentemailController,
       };
 }
 
@@ -63,36 +67,39 @@ class AddStudentsToFireBase {
           .collection("SchoolListCollection")
           .doc(schoolid)
           .collection("Classes")
-          .doc(classId).collection('Students').doc(productModel.admissionNumber).set(productModel.toJson())
+          .doc(classId)
+          .collection('Students')
+          .doc(productModel.studentemailController)
+          .set(productModel.toJson())
           // .collection(classId)
           // .doc(productModel.admissionNumber)
           // .set(productModel.toJson())
           .then(
         (value) {
-          return showDialog(
-            context: context,
-            barrierDismissible: false, // user must tap button!
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('Message'),
-                content: SingleChildScrollView(
-                  child: ListBody(
-                    children: <Widget>[
-                      Text('Successfully created'),
-                    ],
+            return showDialog(
+              context: context,
+              barrierDismissible: false, // user must tap button!
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Message'),
+                  content: SingleChildScrollView(
+                    child: ListBody(
+                      children: <Widget>[
+                        Text('Successfully created'),
+                      ],
+                    ),
                   ),
-                ),
-                actions: <Widget>[
-                  TextButton(
-                    child: const Text('ok'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
-          );
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text('ok'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
         },
       );
     } on FirebaseException catch (e) {

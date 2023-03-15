@@ -4,19 +4,17 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class AddParent extends StatelessWidget {
-   AddParent({super.key, required this.schoolID}); 
+  AddParent({super.key, required this.schoolID});
 
-  String schoolID; 
+  String schoolID;
 
   TextEditingController parentNameController = TextEditingController();
-  TextEditingController parentIDController = TextEditingController();
-  TextEditingController studentIDController = TextEditingController();
-  TextEditingController classInchargeController = TextEditingController();
-  TextEditingController joinDateController = TextEditingController();
+  TextEditingController parentemailController = TextEditingController();
+  TextEditingController parentPhoneNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-     var screenSize = MediaQuery.of(context).size; 
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -36,40 +34,20 @@ class AddParent extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(15),
                 child: TextField(
-                  controller: parentIDController,
+                  controller: parentPhoneNumberController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Parent ID',
+                    labelText: 'Parent Phone Number',
                   ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.all(15),
                 child: TextField(
-                  controller: studentIDController,
+                  controller: parentemailController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Student number',
-                  ),
-                ),
-              ), 
-                Padding(
-                padding: EdgeInsets.all(15),
-                child: TextField(
-                  controller: classInchargeController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Class In Charge'
-                  ),
-                ),
-              ), 
-                Padding(
-                padding: EdgeInsets.all(15),
-                child: TextField(
-                  controller: joinDateController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Join Date',
+                    labelText: 'Parent email',
                   ),
                 ),
               ),
@@ -83,14 +61,16 @@ class AddParent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  onPressed: () async { 
-                    final parentDetails = await
-                     ParentModel(id: parentIDController.text, parentName: parentNameController.text, studentID: studentIDController.text, classIncharge: classInchargeController.text, parentID: parentIDController.text, joinDate: joinDateController.text);
-                  //  final guardianDetails = await GuardianModel(id: guardianIDController.text,
-                  //   guardianName: guardianNameController.text, studentID: studentIDController.text,
-                  //    classIncharge: classInchargeController.text, guardianID: guardianIDController.text, joinDate: joinDateController.text); 
-                  //    CreateGuardiansAddToFireBase().createSchoolController(guardianDetails, context, schoolId);
-                   CreateParentsAddToFireBase().createSchoolController(parentDetails, context, schoolID);
+                  onPressed: () async {
+                    final parentDetails = await ParentModel(
+                        parentEmail: parentemailController.text.trim(),
+                        parentPhoneNumber:
+                            parentPhoneNumberController.text.trim(),
+                        parentName: parentNameController.text,
+                        joinDate: DateTime.now().toString());
+
+                    CreateParentsAddToFireBase().createSchoolController(
+                        parentDetails, context, schoolID);
                   },
                   child: const Text("Add Guardian"),
                 ),

@@ -20,6 +20,7 @@ class AddTeachersModel {
     required this.classIncharge,
     required this.employeeID,
     required this.joinDate,
+
   });
 
   String teacherName;
@@ -28,6 +29,7 @@ class AddTeachersModel {
   String employeeID;
   String joinDate;
 
+
   factory AddTeachersModel.fromJson(Map<String, dynamic> json) =>
       AddTeachersModel(
         id: json["id"] ?? '',
@@ -35,6 +37,7 @@ class AddTeachersModel {
         classIncharge: json["classIncharge"] ?? '',
         joinDate: json["joinDate"] ?? '',
         employeeID: json["employeeID"] ?? '',
+  
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +46,7 @@ class AddTeachersModel {
         "classIncharge": classIncharge,
         "employeeID": employeeID,
         "joinDate": joinDate,
+
       };
 }
 

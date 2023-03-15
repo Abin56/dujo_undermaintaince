@@ -15,7 +15,6 @@ class EditGuardianDetails extends StatelessWidget {
   Widget build(BuildContext context) {
      var screenSize = MediaQuery.of(context).size;  
      guardianNameController.text = model.guardianName; 
-     classInChargeController.text = model.classIncharge; 
      joinDateController.text = model.joinDate;
     return Scaffold(
       body: SingleChildScrollView(
@@ -39,7 +38,6 @@ class EditGuardianDetails extends StatelessWidget {
                   controller: classInChargeController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: model.classIncharge,
                   ),
                 ),
               ),

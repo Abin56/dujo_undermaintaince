@@ -4,21 +4,21 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class AddAStudent extends StatelessWidget {
-   AddAStudent({super.key, required this.classId, required this.schoolId }); 
+  AddAStudent({super.key, required this.classId, required this.schoolId});
 
-   String schoolId; 
-   String classId;
+  String schoolId;
+  String classId;
 
-   TextEditingController studentNameController = TextEditingController();
+  TextEditingController studentNameController = TextEditingController();
   TextEditingController classNameController = TextEditingController();
   TextEditingController admissionNumberController = TextEditingController();
   TextEditingController parentNameController = TextEditingController();
-  TextEditingController parentPhoneController = TextEditingController(); 
+  TextEditingController parentPhoneController = TextEditingController();
   TextEditingController joinDateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size; 
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -54,8 +54,8 @@ class AddAStudent extends StatelessWidget {
                     labelText: 'Admission number',
                   ),
                 ),
-              ), 
-                Padding(
+              ),
+              Padding(
                 padding: EdgeInsets.all(15),
                 child: TextField(
                   controller: parentNameController,
@@ -64,8 +64,8 @@ class AddAStudent extends StatelessWidget {
                     labelText: 'Parent Name',
                   ),
                 ),
-              ), 
-                Padding(
+              ),
+              Padding(
                 padding: EdgeInsets.all(15),
                 child: TextField(
                   controller: parentPhoneController,
@@ -75,7 +75,7 @@ class AddAStudent extends StatelessWidget {
                   ),
                 ),
               ),
-                Padding(
+              Padding(
                 padding: EdgeInsets.all(15),
                 child: TextField(
                   controller: joinDateController,
@@ -96,10 +96,18 @@ class AddAStudent extends StatelessWidget {
                     ),
                   ),
                   onPressed: () async {
-                   final studentDetails = 
-                   await AddStudentsModel(id: studentNameController.text.trim()+admissionNumberController.text, studentName: studentNameController.text, wclass: classNameController.text, admissionNumber: admissionNumberController.text, parentName: parentNameController.text, parentPhNo: parentPhoneController.text, joinDate: joinDateController.text);
-                    AddStudentsToFireBase().addStudentsController(studentDetails, context, schoolId, classId);
-                   
+                    final studentDetails = await AddStudentsModel(
+                        id: studentNameController.text.trim() +
+                            admissionNumberController.text,
+                        studentName: studentNameController.text,
+                        wclass: classNameController.text,
+                        admissionNumber: admissionNumberController.text,
+                        parentName: parentNameController.text,
+                        parentPhNo: parentPhoneController.text,
+                        joinDate: joinDateController.text,
+                        studentemailController: '');
+                    AddStudentsToFireBase().addStudentsController(
+                        studentDetails, context, schoolId, classId);
                   },
                   child: const Text("Add Student"),
                 ),

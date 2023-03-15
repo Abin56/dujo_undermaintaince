@@ -12,18 +12,12 @@ import '../../../../../model/create_classModel/create_classModel.dart';
 import 'add_guardian/add_guardian_screen.dart';
 import 'add_parent/add_parents.dart';
 
- 
-
 class ClassTeacherAdmin extends StatefulWidget {
   var schoolID;
-   var teacherID;
- 
-   ClassTeacherAdmin({
-   required this.schoolID,
-   required this.teacherID,
+  var teacherID;
 
-
-    super.key});
+  ClassTeacherAdmin(
+      {required this.schoolID, required this.teacherID, super.key});
 
   @override
   State<ClassTeacherAdmin> createState() => _ClassTeacherAdminState();
@@ -87,7 +81,9 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AddStudentTea(schoolID: widget.schoolID,teacherID: widget.teacherID),
+                                      builder: (context) => AddStudentTea(
+                                          schoolID: widget.schoolID,
+                                          teacherID: widget.teacherID),
                                     ));
                               },
                               child: Container(
@@ -103,7 +99,8 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AddStudentParents(id: widget.schoolID),
+                                      builder: (context) => AddStudentParents(
+                                          id: widget.schoolID),
                                     ));
                               },
                               child: Container(
@@ -112,12 +109,13 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                   child: CustomNewContainer(
                                       text: "Add Parents", onTap: () {})),
                             ),
-                              InkWell(
+                            InkWell(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AddStudentGuardian(id: widget.schoolID),
+                                      builder: (context) => AddStudentGuardian(
+                                          id: widget.schoolID),
                                     ));
                               },
                               child: Container(
@@ -238,26 +236,36 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                           height: 1000,
                           width: double.infinity,
                           child: StreamBuilder(
-                          stream: FirebaseFirestore.instance.collection("SchoolListCollection").doc(widget.schoolID).collection("Classes").snapshots(),
-                          builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                          return ListView.separated(
-                            itemBuilder: (context, index) {
-                              final data = AddClassesModel.fromJson(snapshot.data!.docs[index].data());
-                            return   SizedBox(
-                                height: screenSize.width * 1 / 13,
-                                width: screenSize.width * 1 / 6,
-                                child: CustomDarkButton(
-                                    text: data.className, onPressed: () {}),
-                              );
-                          }, separatorBuilder: (context, index) {
-                          return  Divider();
-                          }, itemCount:snapshot.data!.docs.length );
-                          
-                          }else{
-                          return Center(child: CircularProgressIndicator.adaptive(),);
-                          }
-                                            },),
+                            stream: FirebaseFirestore.instance
+                                .collection("SchoolListCollection")
+                                .doc(widget.schoolID)
+                                .collection("Classes")
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return ListView.separated(
+                                    itemBuilder: (context, index) {
+                                      final data = AddClassesModel.fromJson(
+                                          snapshot.data!.docs[index].data());
+                                      return SizedBox(
+                                        height: screenSize.width * 1 / 13,
+                                        width: screenSize.width * 1 / 6,
+                                        child: CustomDarkButton(
+                                            text: data.className,
+                                            onPressed: () {}),
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return Divider();
+                                    },
+                                    itemCount: snapshot.data!.docs.length);
+                              } else {
+                                return Center(
+                                  child: CircularProgressIndicator.adaptive(),
+                                );
+                              }
+                            },
+                          ),
                         ),
                       ),
                     ),

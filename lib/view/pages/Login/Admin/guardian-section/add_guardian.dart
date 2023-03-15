@@ -2,22 +2,19 @@ import 'package:dujo_website/model/create_classModel/addStudent_model.dart';
 import 'package:dujo_website/model/guardian/guardian_model.dart';
 import 'package:flutter/material.dart';
 
-
 class AddGuardian extends StatelessWidget {
-   AddGuardian({super.key, required this.schoolId }); 
+  AddGuardian({super.key, required this.schoolId});
 
-   String schoolId; 
+  String schoolId;
 
-
-   TextEditingController guardianNameController = TextEditingController();
+  TextEditingController guardianNameController = TextEditingController();
   TextEditingController guardianIDController = TextEditingController();
-  TextEditingController studentIDController = TextEditingController();
-  TextEditingController classInchargeController = TextEditingController();
-  TextEditingController joinDateController = TextEditingController();
+  TextEditingController guardianEmailController = TextEditingController();
+  TextEditingController guardianPhoneNoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size; 
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -40,38 +37,26 @@ class AddGuardian extends StatelessWidget {
                   controller: guardianIDController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Guardian ID',
+                    labelText: 'Guardian PhoneNumber',
                   ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.all(15),
                 child: TextField(
-                  controller: studentIDController,
+                  controller: guardianEmailController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Student number',
+                    labelText: 'Guardian email',
                   ),
                 ),
-              ), 
-                Padding(
+              ),
+              Padding(
                 padding: EdgeInsets.all(15),
                 child: TextField(
-                  controller: classInchargeController,
+                  controller: guardianPhoneNoController,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Class In Charge'
-                  ),
-                ),
-              ), 
-                Padding(
-                padding: EdgeInsets.all(15),
-                child: TextField(
-                  controller: joinDateController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Join Date',
-                  ),
+                      border: OutlineInputBorder(), labelText: 'Guardian Id'),
                 ),
               ),
               SizedBox(
@@ -85,10 +70,17 @@ class AddGuardian extends StatelessWidget {
                     ),
                   ),
                   onPressed: () async {
-                   final guardianDetails = await GuardianModel(id: guardianIDController.text,
-                    guardianName: guardianNameController.text, studentID: studentIDController.text,
-                     classIncharge: classInchargeController.text, guardianID: guardianIDController.text, joinDate: joinDateController.text); 
-                     CreateGuardiansAddToFireBase().createSchoolController(guardianDetails, context, schoolId);
+                    final guardianDetails = await GuardianModel(
+                      guardianID: guardianEmailController.text.trim(),
+                      joinDate: DateTime.now().toString(),
+                      guardianEmail: guardianEmailController.text.trim(),
+                      guardianPhoneNumber:
+                          guardianPhoneNoController.text.trim(),
+                      id: guardianIDController.text,
+                      guardianName: guardianNameController.text.trim(),
+                    );
+                    CreateGuardiansAddToFireBase().createSchoolController(
+                        guardianDetails, context, schoolId);
                   },
                   child: const Text("Add Guardian"),
                 ),

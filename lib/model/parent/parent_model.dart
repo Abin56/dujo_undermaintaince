@@ -11,37 +11,29 @@ String ParentModelToJson(ParentModel data) =>
 
 class ParentModel {
   ParentModel({
-    required this.id,
     required this.parentName, 
-    required this.studentID,
-    required this.classIncharge,
-    required this.parentID,
+    required this.parentEmail,
+    required this.parentPhoneNumber,
     required this.joinDate,
   });
 
   String parentName;
-  String classIncharge;
-  String studentID;
-  String id;
-  String parentID;
+  String parentPhoneNumber;
+  String parentEmail;
   String joinDate;
 
   factory ParentModel.fromJson(Map<String, dynamic> json) =>
       ParentModel(
-        id: json["id"] ?? '',
-        studentID: json["studentID"] ?? '',
+        parentEmail: json["parentEmail"] ?? '',
         parentName: json["parentName"] ?? '',
-        classIncharge: json["classIncharge"] ?? '',
+        parentPhoneNumber: json["parentPhoneNumber"] ?? '',
         joinDate: json["joinDate"] ?? '',
-        parentID: json["parentID"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "parentName": parentName, 
-        "studentID": studentID,
-        "classIncharge": classIncharge,
-        "parentID": parentID,
+        "parentEmail": parentEmail,
+        "parentPhoneNumber": parentPhoneNumber,
         "joinDate": joinDate,
       };
 }
@@ -55,7 +47,7 @@ class CreateParentsAddToFireBase {
           .collection("SchoolListCollection")
           .doc(id)
           .collection("Students_Parents")
-          .doc(productModel.parentID)
+          .doc(productModel.parentEmail)
           .set(productModel.toJson())
           .then(
         (value) {

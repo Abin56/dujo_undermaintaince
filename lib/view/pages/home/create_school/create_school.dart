@@ -3,6 +3,7 @@ import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../model/schools_to_be_verified/schools_to_be_verified_create_list.dart';
+
 class SchoolProfile extends StatefulWidget {
   SchoolProfile({super.key});
 
@@ -19,9 +20,9 @@ class _SchoolProfileState extends State<SchoolProfile> {
 
   TextEditingController adminUserNameController = TextEditingController();
 
-  TextEditingController adminPasswordController = TextEditingController(); 
+  TextEditingController adminPasswordController = TextEditingController();
 
-  TextEditingController phoneNumberController = TextEditingController(); 
+  TextEditingController phoneNumberController = TextEditingController();
 
   TextEditingController emailController = TextEditingController();
 
@@ -117,7 +118,7 @@ class _SchoolProfileState extends State<SchoolProfile> {
                     ),
                   ),
                 ),
-                 Padding(
+                Padding(
                   padding: EdgeInsets.all(15),
                   child: TextField(
                     controller: emailController,
@@ -128,7 +129,7 @@ class _SchoolProfileState extends State<SchoolProfile> {
                     ),
                   ),
                 ),
-                 Padding(
+                Padding(
                   padding: EdgeInsets.all(15),
                   child: TextField(
                     controller: phoneNumberController,
@@ -149,17 +150,26 @@ class _SchoolProfileState extends State<SchoolProfile> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    onPressed: () { 
-                      final schoolDetails = SchoolsToBeVerified
-                      (schoolName: schoolNameController.text, schoolID: schoolNameController.text.substring(0,5) + cityValue.substring(0,5) + schoolID ,
-                      id: adminUserNameController.text.trim()+ schoolID,
-                       district: cityValue.toString(),
-                        place: placeController.text.trim(), 
-                        adminUserName: adminUserNameController.text.trim(),
-                         password: adminPasswordController.text.trim(),
-                          phoneNumber: phoneNumberController.text, email: emailController.text, postedDate: DateTime.now().toString(),verified: false); 
+                    onPressed: () {
+                      final schoolDetails = SchoolsToBeVerified(
+                          schoolName: schoolNameController.text,
+                          schoolID: schoolNameController.text.substring(0, 5) +
+                              cityValue.substring(0, 5) +
+                              schoolID,
+                          id: schoolNameController.text.substring(0, 5) +
+                              cityValue.substring(0, 5) +
+                              schoolID,
+                          district: cityValue.toString(),
+                          place: placeController.text.trim(),
+                          adminUserName: adminUserNameController.text.trim(),
+                          password: adminPasswordController.text.trim(),
+                          phoneNumber: phoneNumberController.text,
+                          email: emailController.text,
+                          postedDate: DateTime.now().toString(),
+                          verified: false);
 
-                          AddRequestedSchoolsToFirebase().addRequestedSchools(schoolDetails, context);
+                      AddRequestedSchoolsToFirebase()
+                          .addRequestedSchools(schoolDetails, context);
                       // final schoolDetails = CreatedSchoolAddModel(
                       //     id: adminUserNameController.text.trim() + schoolID,
                       //     schoolName: schoolNameController.text.trim(),

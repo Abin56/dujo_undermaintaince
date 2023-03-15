@@ -6,13 +6,14 @@ import '../widgets/custom_blue_button.dart';
 
 class AddStudentTea extends StatelessWidget {
   var schoolID;
-    var teacherID;
+  var teacherID;
 
   TextEditingController studentNameController = TextEditingController();
   TextEditingController parentPhNoController = TextEditingController();
   TextEditingController parentNameController = TextEditingController();
   TextEditingController addmissionNumberController = TextEditingController();
-  AddStudentTea({this.schoolID,required this.teacherID, super.key});
+  TextEditingController studentemailController = TextEditingController();
+  AddStudentTea({this.schoolID, required this.teacherID, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class AddStudentTea extends StatelessWidget {
           child: Center(
             child: Container(
               color: Colors.white,
-              height: screenSize.width * 1 / 3.5,
+              height: screenSize.width * 1 / 2.5,
               width: screenSize.width * 1 / 4,
               child: Column(children: [
                 Padding(
@@ -41,7 +42,20 @@ class AddStudentTea extends StatelessWidget {
                 ),
                 Padding(
                     padding: EdgeInsets.all(15),
-                    child: GetClassesListDropDownButton(schoolID: schoolID,teacherID:teacherID ,)),
+                    child: GetClassesListDropDownButton(
+                      schoolID: schoolID,
+                      teacherID: teacherID,
+                    )),
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: TextField(
+                    controller: studentemailController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Student email',
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: EdgeInsets.all(15),
                   child: TextField(
@@ -84,7 +98,9 @@ class AddStudentTea extends StatelessWidget {
                     ),
                     onPressed: () async {
                       final studentDetails = AddStudentsModel(
-                          id: addmissionNumberController.text.trim(),
+                          studentemailController:
+                              studentemailController.text.trim(),
+                          id: studentemailController.text.trim(),
                           studentName: studentNameController.text.trim(),
                           wclass: classesListValue!["id"],
                           admissionNumber:

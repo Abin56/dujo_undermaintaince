@@ -6,56 +6,53 @@ import 'package:flutter/material.dart';
 GuardianModel GuardianModelFromJson(String str) =>
     GuardianModel.fromJson(json.decode(str));
 
-String GuardianModelToJson(GuardianModel data) =>
-    json.encode(data.toJson());
+String GuardianModelToJson(GuardianModel data) => json.encode(data.toJson());
 
 class GuardianModel {
   GuardianModel({
     required this.id,
-    required this.guardianName, 
-    required this.studentID,
-    required this.classIncharge,
+    required this.guardianName,
     required this.guardianID,
     required this.joinDate,
+    required this.guardianPhoneNumber,
+    required this.guardianEmail,
   });
 
   String guardianName;
-  String classIncharge;
-  String studentID;
   String id;
   String guardianID;
   String joinDate;
+  String guardianPhoneNumber;
+  String guardianEmail;
 
-  factory GuardianModel.fromJson(Map<String, dynamic> json) =>
-      GuardianModel(
+  factory GuardianModel.fromJson(Map<String, dynamic> json) => GuardianModel(
         id: json["id"] ?? '',
-        studentID: json["studentID"] ?? '',
         guardianName: json["guardianName"] ?? '',
-        classIncharge: json["classIncharge"] ?? '',
         joinDate: json["joinDate"] ?? '',
         guardianID: json["guardianID"] ?? '',
+        guardianPhoneNumber: json["guardianPhoneNumber"] ?? '',
+        guardianEmail: json["guardianEmail"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "guardianName": guardianName, 
-        "studentID": studentID,
-        "classIncharge": classIncharge,
+        "guardianName": guardianName,
         "guardianID": guardianID,
         "joinDate": joinDate,
+        "guardianPhoneNumber": guardianPhoneNumber,
+        "guardianEmail": guardianEmail,
       };
 }
 
 class CreateGuardiansAddToFireBase {
-  Future createSchoolController(
-      GuardianModel productModel, context, id) async {
+  Future createSchoolController(GuardianModel productModel, context, id) async {
     try {
       final firebase = FirebaseFirestore.instance;
       final doc = firebase
           .collection("SchoolListCollection")
           .doc(id)
           .collection("Student_Guardian")
-          .doc(productModel.guardianID)
+          .doc(productModel.guardianEmail)
           .set(productModel.toJson())
           .then(
         (value) {
