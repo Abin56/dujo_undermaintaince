@@ -15,10 +15,8 @@ import '../../../icons/icons.dart';
 class FacultyLoginScreen extends StatelessWidget {
   String schoolID;
   TextEditingController idController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-   FacultyLoginScreen({
-    required this.schoolID,
-    Key? key}) : super(key: key);
+  TextEditingController passwordController = TextEditingController();
+  FacultyLoginScreen({required this.schoolID, Key? key}) : super(key: key);
 
   final TextEditingController _facultyController = TextEditingController();
 
@@ -222,46 +220,50 @@ class FacultyLoginScreen extends StatelessWidget {
                         color: Colors.transparent,
                         child: InkWell(
                           onTap: () async {
+                            //>>>>>>>>>>>>>>>>>Checking ID<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                            CollectionReference cat = FirebaseFirestore.instance
+                                .collection("SchoolListCollection")
+                                .doc(schoolID)
+                                .collection("Teachers");
+                            Query query = cat.where("teacherEmail",
+                                isEqualTo: idController.text.trim());
+                            QuerySnapshot querySnapshot = await query.get();
+                            final docData = querySnapshot.docs
+                                .map((doc) => doc.data())
+                                .toList();
+                            log(query.toString());
+                            log(docData.toString());
+                            //
+                            //>>>>>>>>>>>>>>>>>>>Checking password<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                            CollectionReference pass = FirebaseFirestore
+                                .instance
+                                .collection("SchoolListCollection")
+                                .doc(schoolID)
+                                .collection("Teachers");
+                            Query queries = pass.where("employeeID",
+                                isEqualTo: passwordController.text.trim());
+                            QuerySnapshot querySnapshott = await queries.get();
+                            final docDataa = querySnapshott.docs
+                                .map((doc) => doc.data())
+                                .toList();
+                            log(query.toString());
+                            log(docDataa.toString());
 
+                            if (docDataa.isNotEmpty && docData.isNotEmpty) {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return ClassTeacherAdmin(
+                                    schoolID: schoolID,
+                                    teacherID: passwordController.text.trim(),
+                                    teacherEmail: idController.text.trim(),
+                                  );
+                                },
+                              ));
+                              log('Correct password');
+                            } else {
+                              log('Wrong password');
+                            }
 
-                        //>>>>>>>>>>>>>>>>>Checking ID<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                          CollectionReference cat = FirebaseFirestore.instance
-                              .collection("SchoolListCollection").doc(schoolID).collection("Teachers");
-                          Query query = cat.where("employeeID",
-                              isEqualTo: idController.text.trim());
-                          QuerySnapshot querySnapshot = await query.get();
-                          final docData = querySnapshot.docs
-                              .map((doc) => doc.data())
-                              .toList();
-                          log(query.toString());
-                          log(docData.toString());
-                          //
-                          //>>>>>>>>>>>>>>>>>>>Checking password<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                          CollectionReference pass = FirebaseFirestore.instance
-                            .collection("SchoolListCollection").doc(schoolID).collection("Teachers");
-                          Query queries = pass.where("employeeID",
-                              isEqualTo: passwordController.text.trim());
-                          QuerySnapshot querySnapshott = await queries.get();
-                          final docDataa = querySnapshott.docs
-                              .map((doc) => doc.data())
-                              .toList();
-                          log(query.toString());
-                          log(docDataa.toString());
-
-                        
-                          if (docDataa.isNotEmpty && docData.isNotEmpty) {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return ClassTeacherAdmin(schoolID: schoolID,teacherID:idController.text.trim() ,);
-                              },
-                            ));
-                            log('Correct password');
-                          } else {
-                            log('Wrong password');
-                          }
-
-
-                      
                             // //>>>>>>>>>>>>>>>>>Checking ID<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                             // CollectionReference cat = FirebaseFirestore.instance
                             //     .collection("FacultyProfiles");

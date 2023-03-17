@@ -86,36 +86,38 @@ class AddStudentTea extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  height: screenSize.width * 1 / 15,
-                  width: 400,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 3, 39, 68),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                Expanded(
+                  child: Container(
+                    height: screenSize.width * 1 / 15,
+                    width: 400,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 3, 39, 68),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
-                    ),
-                    onPressed: () async {
-                      final studentDetails = AddStudentsModel(
-                          studentemailController:
-                              studentemailController.text.trim(),
-                          id: studentemailController.text.trim(),
-                          studentName: studentNameController.text.trim(),
-                          wclass: classesListValue!["id"],
-                          admissionNumber:
-                              addmissionNumberController.text.trim(),
-                          parentName: parentNameController.text.trim(),
-                          parentPhNo: parentPhNoController.text.trim(),
-                          joinDate: DateTime.now().toString());
+                      onPressed: () async {
+                        final studentDetails = AddStudentsModel(
+                            studentemailController:
+                                studentemailController.text.trim(),
+                            id: studentemailController.text.trim(),
+                            studentName: studentNameController.text.trim(),
+                            wclass: classesListValue!["id"],
+                            admissionNumber:
+                                addmissionNumberController.text.trim(),
+                            parentName: parentNameController.text.trim(),
+                            parentPhNo: parentPhNoController.text.trim(),
+                            joinDate: DateTime.now().toString());
 
-                      await AddStudentsToFireBase().addStudentsController(
-                          studentDetails,
-                          context,
-                          schoolID,
-                          classesListValue!["id"]);
-                    },
-                    child: Text("Add Student"),
+                        await AddStudentsToFireBase().addStudentsController(
+                            studentDetails,
+                            context,
+                            schoolID,
+                            classesListValue!["id"]);
+                      },
+                      child: Text("Add Student"),
+                    ),
                   ),
                 ),
               ]),

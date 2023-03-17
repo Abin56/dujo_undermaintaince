@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dujo_website/view/pages/web/admin/dujo_admin_teacher_list.dart';
 import 'package:dujo_website/view/pages/web/class_teacher/add_student.dart';
@@ -11,19 +13,33 @@ import 'package:flutter/material.dart';
 import '../../../../../model/create_classModel/create_classModel.dart';
 import 'add_guardian/add_guardian_screen.dart';
 import 'add_parent/add_parents.dart';
+import 'student_list/class_teacher_wise_studentlist.dart';
 
 class ClassTeacherAdmin extends StatefulWidget {
   var schoolID;
   var teacherID;
+  var teacherEmail;
 
-  ClassTeacherAdmin(
-      {required this.schoolID, required this.teacherID, super.key});
+  ClassTeacherAdmin({
+    required this.schoolID,
+    required this.teacherID,
+    super.key,
+    required this.teacherEmail,
+  });
 
   @override
   State<ClassTeacherAdmin> createState() => _ClassTeacherAdminState();
 }
 
 class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
+  String teacherClassId = '';
+
+  @override
+  void initState() {
+    getTeacherDetails();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -235,12 +251,14 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                         child: Container(
                           height: 1000,
                           width: double.infinity,
-                          child: StreamBuilder(
-                            stream: FirebaseFirestore.instance
+                          child: FutureBuilder(
+                            future: FirebaseFirestore.instance
                                 .collection("SchoolListCollection")
                                 .doc(widget.schoolID)
                                 .collection("Classes")
-                                .snapshots(),
+                                .where('classIncharge',
+                                    isEqualTo: widget.teacherID)
+                                .get(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return ListView.separated(
@@ -251,7 +269,10 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                         height: screenSize.width * 1 / 13,
                                         width: screenSize.width * 1 / 6,
                                         child: CustomDarkButton(
+                                            classID: teacherClassId,
                                             text: data.className,
+                                            schoolId: widget.schoolID,
+                                            teacherId: widget.teacherID,
                                             onPressed: () {}),
                                       );
                                     },
@@ -283,5 +304,18 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
             ),
           ),
         ));
+  }
+
+  void getTeacherDetails() async {
+    var vari = await FirebaseFirestore.instance
+        .collection("SchoolListCollection")
+        .doc(widget.schoolID)
+        .collection("Teachers")
+        .doc(widget.teacherEmail)
+        .get();
+    setState(() {
+      teacherClassId = vari.data()!['classIncharge'];
+    });
+    log(vari.toString());
   }
 }

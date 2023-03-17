@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dujo_website/model/guardian/guardian_model.dart';
 import 'package:dujo_website/view/pages/Login/Admin/guardian-section/add_guardian.dart';
-import 'package:dujo_website/view/pages/Login/Admin/guardian-section/edit_guardian_Details.dart';
+
 import 'package:dujo_website/view/pages/web/widgets/custom_container.dart';
 import 'package:flutter/material.dart';
+
+import 'edit_guardian_details.dart';
 
 class AdminGuardiansPanelScreen extends StatelessWidget {
    AdminGuardiansPanelScreen({super.key, required this.id}); 

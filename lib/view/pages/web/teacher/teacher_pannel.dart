@@ -223,6 +223,7 @@ class _TeacherPannelAdminState extends State<TeacherPannelAdmin> {
                                 height: screenSize.width * 1 / 13,
                                 width: screenSize.width * 1 / 6,
                                 child: CustomDarkButton(
+                                  classID: '',
                                     text: "Class 2", onPressed: () {}),
                               ),
                               Container(
