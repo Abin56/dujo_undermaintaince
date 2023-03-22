@@ -12,3 +12,14 @@ void showToast({required String msg}) {
     fontSize: 16.0,
   );
 }
+
+String stringTimeToDateConvert(String date) {
+  //String dateandtime convert to "dd-mm-yyyy" this format
+  try {
+    final DateTime dateFormat = DateTime.parse(date);
+    return "${dateFormat.day}-${dateFormat.month}-${dateFormat.year}";
+  } catch (e) {
+    showToast(msg: e.toString());
+  }
+  return '';
+}

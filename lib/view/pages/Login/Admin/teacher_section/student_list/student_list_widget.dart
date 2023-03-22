@@ -9,7 +9,7 @@ import '../../../../../../model/parent/parent_data_model.dart';
 import '../../../../../../model/student/student_list_model.dart';
 import '../../../../../constants/const.dart';
 
-import '../../../../widgets/utils/flutter_toast.dart';
+import '../../../../../../utils/utils.dart';
 
 final ClassTeacherStudentListController classTeacherStudentListController =
     Get.put(ClassTeacherStudentListController());
@@ -67,14 +67,24 @@ void getStudentData(
                   ]),
                   DataRow(cells: [
                     const DataCell(Text('Join Date')),
-                    DataCell(Text(studentData.joinDate.toString())),
+                    DataCell(
+                      Text(
+                        stringTimeToDateConvert(studentData.joinDate),
+                      ),
+                    ),
                   ]),
                   DataRow(cells: [
-                    const DataCell(Text('Parent Name')),
-                    DataCell(Text(studentData.parentName)),
+                    const DataCell(
+                      Text('Parent Name'),
+                    ),
+                    DataCell(
+                      Text(studentData.parentName),
+                    ),
                   ]),
                   DataRow(cells: [
-                    const DataCell(Text('Phone Number')),
+                    const DataCell(
+                      Text('Phone Number'),
+                    ),
                     DataCell(Row(
                       children: [
                         Text(studentData.parentPhNo),
@@ -113,46 +123,97 @@ void getStudentData(
                   ]),
                 ]),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      final guardianData =
-                          await classTeacherStudentListController
-                              .getClassTeacherWiseStudenGuardianData(
-                                  schoolId: schoolId,
-                                  studentDataId: studentData.id);
-                      if (context.mounted) {
-                        getGuardianData(
-                          studentData,
-                          schoolId,
-                          context: context,
-                          guardianDataModel: guardianData,
-                        );
-                      }
-                    },
-                    child: const Text('Guardian Details'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      final parentData = await classTeacherStudentListController
-                          .getClassTeacherWiseStudenParentData(
-                              schoolId: schoolId,
-                              studentDataId: studentData.id);
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        final guardianData =
+                            await classTeacherStudentListController
+                                .getClassTeacherWiseStudenGuardianData(
+                                    schoolId: schoolId,
+                                    studentDataId: studentData.id);
+                        if (context.mounted) {
+                          getGuardianData(
+                            studentData,
+                            schoolId,
+                            context: context,
+                            guardianDataModel: guardianData,
+                          );
+                        }
+                      },
+                      child: const Text('Guardian Details'),
+                    ),
+                    sizedBoxW20,
+                    ElevatedButton(
+                      onPressed: () async {
+                        final parentData =
+                            await classTeacherStudentListController
+                                .getClassTeacherWiseStudenParentData(
+                                    schoolId: schoolId,
+                                    studentDataId: studentData.id);
 
-                      if (context.mounted) {
-                        getParentData(
-                          studentData,
-                          schoolId,
-                          parentDataModel: parentData,
-                          context: context,
-                        );
-                      }
-                    },
-                    child: const Text('Parent Details'),
-                  ),
-                ],
+                        if (context.mounted) {
+                          getParentData(
+                            studentData,
+                            schoolId,
+                            parentDataModel: parentData,
+                            context: context,
+                          );
+                        }
+                      },
+                      child: const Text('Parent Details'),
+                    ),
+                    sizedBoxW20,
+                    ElevatedButton(
+                      onPressed: () async {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Conform Remove'),
+                                content: const Text(
+                                    'Are you sure you want to remove this student'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () async {
+                                      final bool result =
+                                          await classTeacherStudentListController
+                                              .removeStudentData(
+                                        studentData.id,
+                                        classId,
+                                        schoolId,
+                                      );
+                                      if (result) {
+                                        if (context.mounted) {
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                          showToast(
+                                              msg: 'Successfully Removed');
+                                        }
+                                      }
+                                    },
+                                    child: const Text('Remove'),
+                                  )
+                                ],
+                              );
+                            });
+                      },
+                      child: const Text(
+                        "Remove Student",
+                      ),
+                    )
+                  ],
+                ),
               )
             ]),
           ),
@@ -237,7 +298,11 @@ getGuardianData(
               ]),
               DataRow(cells: [
                 const DataCell(Text('Join Date')),
-                DataCell(Text(guardianDataModel.joinDate.toString())),
+                DataCell(
+                  Text(
+                    stringTimeToDateConvert(guardianDataModel.joinDate),
+                  ),
+                ),
               ]),
               DataRow(cells: [
                 const DataCell(Text('Pincode')),
@@ -301,7 +366,11 @@ getParentData(StudentData studentData, String schoolId,
               ]),
               DataRow(cells: [
                 const DataCell(Text('Join Date')),
-                DataCell(Text(parentDataModel.joinDate.toString())),
+                DataCell(
+                  Text(
+                    stringTimeToDateConvert(parentDataModel.joinDate),
+                  ),
+                ),
               ]),
               DataRow(cells: [
                 const DataCell(Text('Name of father')),
@@ -368,6 +437,9 @@ void editNumber(BuildContext context, String studentId, String classId,
     String schoolId, String previousNumber, String whichPage) async {
   TextEditingController textEditingControllerPhoneNumber =
       TextEditingController();
+    /*same function used three different situations it work with whichPage data
+    Student detail, Parent Detail, Guardian detail these pages mobile number updated
+    function.*/ 
   showDialog(
       context: context,
       builder: (context) {

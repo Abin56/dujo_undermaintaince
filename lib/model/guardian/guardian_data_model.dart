@@ -33,7 +33,7 @@ class GuardianDataModel {
   String guardianPhoneNumber;
   String houseName;
   String id;
-  DateTime joinDate;
+  String joinDate;
   String pincode;
   String place;
   String state;
@@ -48,7 +48,7 @@ class GuardianDataModel {
         guardianPhoneNumber: json["guardianPhoneNumber"],
         houseName: json["houseName"],
         id: json["id"],
-        joinDate: DateTime.parse(json["joinDate"]),
+        joinDate: json["joinDate"],
         pincode: json["pincode"],
         place: json["place"],
         state: json["state"],
@@ -63,7 +63,7 @@ class GuardianDataModel {
         "guardianPhoneNumber": guardianPhoneNumber,
         "houseName": houseName,
         "id": id,
-        "joinDate": joinDate.toIso8601String(),
+        "joinDate": joinDate,
         "pincode": pincode,
         "place": place,
         "state": state,

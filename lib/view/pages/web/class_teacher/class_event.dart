@@ -1,10 +1,18 @@
-import 'package:dujo_website/view/pages/web/admin/dujo_admin_teacher_list.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_container.dart';
+import 'events_screen/create_events_screen.dart';
+import 'events_screen/remove_class_events.dart';
+import 'events_screen/update_event_screens/list_classwise_event.dart';
 
 class ClassEventsTeacher extends StatefulWidget {
-  const ClassEventsTeacher({super.key});
+  const ClassEventsTeacher({
+    super.key,
+    required this.classId,
+    required this.schoolId,
+  });
+  final String schoolId;
+  final String classId;
 
   @override
   State<ClassEventsTeacher> createState() => _ClassEventsTeacherState();
@@ -30,7 +38,10 @@ class _ClassEventsTeacherState extends State<ClassEventsTeacher> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AdminTeacherList(),
+                          builder: (context) => ClassTeacherCreateEventsPage(
+                            classId: widget.classId,
+                            schoolId: widget.schoolId,
+                          ),
                         ));
                   },
                   child: Container(
@@ -38,7 +49,7 @@ class _ClassEventsTeacherState extends State<ClassEventsTeacher> {
                       width: screenSize.width * 1 / 3,
                       child: CustomContainer(
                         text: 'Create Events',
-                        onTap: () {},
+                        onTap: () async {},
                       )),
                 ))),
             Padding(
@@ -48,7 +59,10 @@ class _ClassEventsTeacherState extends State<ClassEventsTeacher> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AdminTeacherList(),
+                          builder: (context) => ClassEventsPage(
+                            classId: widget.classId,
+                            schoolId: widget.schoolId,
+                          ),
                         ));
                   },
                   child: Container(
@@ -67,7 +81,10 @@ class _ClassEventsTeacherState extends State<ClassEventsTeacher> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AdminTeacherList(),
+                          builder: (context) => RemoveEventsPage(
+                            classId: widget.classId,
+                            schoolId: widget.schoolId,
+                          ),
                         ));
                   },
                   child: Container(

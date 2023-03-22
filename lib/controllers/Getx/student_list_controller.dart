@@ -124,4 +124,26 @@ class ClassTeacherStudentListController extends GetxController {
 
     return isupdated.value;
   }
+
+//Teacher can remove students this time just change deactivate field to true
+  Future<bool> removeStudentData(
+      String studentId, String classId, String schoolId) async {
+    try {
+      await firestore
+          .collection('SchoolListCollection')
+          .doc(schoolId)
+          .collection('Classes')
+          .doc(classId)
+          .collection('Students')
+          .doc(studentId)
+          .update(
+        <String, dynamic>{
+          "deactivate": true,
+        },
+      );
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

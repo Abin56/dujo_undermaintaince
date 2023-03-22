@@ -5,13 +5,17 @@ import '../../../../../../model/student/student_list_model.dart';
 import 'dart:math' as math;
 
 class ClassTeacherWiseStudentList extends StatelessWidget {
-  final schoolId;
-  final teacherId;
-  var classID;
-  ClassTeacherWiseStudentList(
-      {super.key, this.schoolId, this.teacherId, required this.classID});
+  final String schoolId;
+  final String teacherId;
+  final String classID;
+  const ClassTeacherWiseStudentList({
+    super.key,
+    required this.schoolId,
+    required this.teacherId,
+    required this.classID,
+  });
 
-  QuerySnapshot<Map<String, dynamic>>? teacherClassData;
+  // QuerySnapshot<Map<String, dynamic>>? teacherClassData;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +33,13 @@ class ClassTeacherWiseStudentList extends StatelessWidget {
             .collection("Classes")
             .doc(classID)
             .collection("Students")
-            .orderBy('studentName')
+            .where('deactivate', isEqualTo: false)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 10,
+                  crossAxisCount: 5,
                 ),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
@@ -50,9 +54,9 @@ class ClassTeacherWiseStudentList extends StatelessWidget {
                     ),
                     child: Container(
                       margin: const EdgeInsets.all(8),
-                      color:
-                          Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                              .withOpacity(1.0),
+                      color: Color(
+                        (math.Random().nextDouble() * 0xFFFFFF).toInt(),
+                      ).withOpacity(1.0),
                       child: Center(
                         child: Text(
                           listData.studentName,
