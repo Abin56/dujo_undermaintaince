@@ -17,7 +17,6 @@ class AddTeachersModel {
   AddTeachersModel({
     required this.id,
     required this.teacherName,
-    required this.classIncharge,
     required this.employeeID,
     required this.joinDate,
     required this.teacherPhNo,
@@ -36,7 +35,6 @@ class AddTeachersModel {
       AddTeachersModel(
         id: json["id"] ?? '',
         teacherName: json["teacherName"] ?? '',
-        classIncharge: json["classIncharge"] ?? '',
         joinDate: json["joinDate"] ?? '',
         employeeID: json["employeeID"] ?? '',
         teacherPhNo: json["teacherPhNo"] ?? '',
@@ -47,7 +45,6 @@ class AddTeachersModel {
         "id": id,
         "teacherName": teacherName,
         "joinDate": joinDate,
-        "classIncharge": classIncharge,
         "teacherPhNo": teacherPhNo,
         "employeeID": employeeID,
         "teacherEmail": teacherEmail,

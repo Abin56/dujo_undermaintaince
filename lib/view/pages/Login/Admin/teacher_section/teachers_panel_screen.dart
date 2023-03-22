@@ -114,7 +114,7 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                     MaterialPageRoute(
                                       builder: (context) => AddStudentTea(
                                           schoolID: widget.schoolID,
-                                          teacherID: widget.teacherID),
+                                          teacherIDE: widget.teacherEmail),
                                     ));
                               },
                               child: Container(

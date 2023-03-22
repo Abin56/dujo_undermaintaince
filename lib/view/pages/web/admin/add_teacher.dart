@@ -65,10 +65,6 @@ class _AddTeacherState extends State<AddTeacher> {
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.all(15),
-                    child:
-                        GetClassTeacherListDropDownButton(schooID: widget.id)),
-                Padding(
                   padding: const EdgeInsets.all(15),
                   child: TextField(
                     controller: employeeID,
@@ -95,7 +91,6 @@ class _AddTeacherState extends State<AddTeacher> {
                           teacherPhNo: phoneNumberController.text.trim(),
                           id: emailController.text.trim(),
                           teacherName: teacherName.text.trim(),
-                          classIncharge: classIDListValue!["classID"]??'',
                           employeeID: employeeID.text.trim(),
                           joinDate: DateTime.now().toString());
                       CreateTeachersAddToFireBase().createSchoolController(
