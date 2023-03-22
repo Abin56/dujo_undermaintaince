@@ -205,8 +205,10 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          ClassNoticeTeacher(),
+                                      builder: (context) => ClassNoticeTeacher(
+                                        classId: teacherClassId,
+                                        schoolId: widget.schoolID,
+                                      ),
                                     ));
                               },
                               child: Container(
