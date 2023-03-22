@@ -75,7 +75,7 @@ class AddParent extends StatelessWidget {
                   child: const Text("Add Guardian"),
                 ),
               )
-            ]),
+            ])
           ),
         ),
       ),

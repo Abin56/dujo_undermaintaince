@@ -25,7 +25,7 @@ class AddTeachersModel {
   });
 
   String teacherName;
-  String classIncharge;
+  String? classIncharge;
   String id;
   String employeeID;
   String joinDate;

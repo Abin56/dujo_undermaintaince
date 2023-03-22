@@ -194,7 +194,7 @@ showGuardianDetails(
           
           },), 
            TextButton(child: Text('REMOVE'), onPressed: (){
-            FirebaseFirestore.instance.collection('SchoolListCollection').doc(id).collection('Student_Guardian').doc(guardianModel.guardianID).delete();
+            // FirebaseFirestore.instance.collection('SchoolListCollection').doc(id).collection('Student_Guardian').doc(guardianModel.guardianID).delete();
           },),
           TextButton(child: Text('OK'), onPressed: (){
             Navigator.pop(context);
@@ -212,7 +212,6 @@ showGuardianDetails(
               Row(
                 children: [
                   Text('ID :'),
-                  Text(guardianModel.guardianID),
                 ],
               ),
               Row(

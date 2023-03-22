@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 class CustomDarkButton extends StatelessWidget {
   final String text;
+  var classID;
+  var schoolId;
+  var teacherId;
   final VoidCallback onPressed;
 
-  const CustomDarkButton(
-      {Key? key, required this.text, required this.onPressed})
+   CustomDarkButton(
+      {Key? key, required this.text, required this.onPressed,this.classID,this.schoolId,this.teacherId})
       : super(key: key);
 
   @override
