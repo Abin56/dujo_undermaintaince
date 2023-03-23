@@ -1,3 +1,7 @@
+
+
+import 'dart:developer';
+
 import 'package:dujo_website/model/create_classModel/addStudent_model.dart';
 import 'package:dujo_website/view/pages/Login/Admin/teacher_section/get_classes.dart';
 import 'package:flutter/material.dart';
@@ -6,17 +10,18 @@ import '../widgets/custom_blue_button.dart';
 
 class AddStudentTea extends StatelessWidget {
   var schoolID;
-  var teacherID;
+  var teacherIDE;
 
   TextEditingController studentNameController = TextEditingController();
   TextEditingController parentPhNoController = TextEditingController();
   TextEditingController parentNameController = TextEditingController();
   TextEditingController addmissionNumberController = TextEditingController();
   TextEditingController studentemailController = TextEditingController();
-  AddStudentTea({this.schoolID, required this.teacherID, super.key});
+  AddStudentTea({this.schoolID, required this.teacherIDE, super.key});
 
   @override
   Widget build(BuildContext context) {
+    log("teacherEmail ID??????${teacherIDE}");
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 27, 95, 88),
@@ -44,7 +49,7 @@ class AddStudentTea extends StatelessWidget {
                     padding: EdgeInsets.all(15),
                     child: GetClassesListDropDownButton(
                       schoolID: schoolID,
-                      teacherID: teacherID,
+                      teacherID: teacherIDE,
                     )),
                 Padding(
                   padding: EdgeInsets.all(15),

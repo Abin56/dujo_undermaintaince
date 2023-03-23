@@ -7,6 +7,8 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../drop_DownList/get_classList.dart';
+
 AddClassesModel AddClassesModelFromJson(String str) =>
     AddClassesModel.fromJson(json.decode(str));
 
@@ -48,7 +50,7 @@ class AddClassesModel {
 
 class CreateClassesAddToFireBase {
   Future createClassesController(
-      AddClassesModel productModel, context, id) async {
+      AddClassesModel productModel, context, id,classID) async {
     try {
       final firebase = FirebaseFirestore.instance;
       final doc = firebase
@@ -57,7 +59,14 @@ class CreateClassesAddToFireBase {
           .collection("Classes")
           .doc(productModel.classID)
           .set(productModel.toJson())
-          .then(
+          .then((value) {
+        FirebaseFirestore.instance
+            .collection("SchoolListCollection")
+            .doc(id)
+            .collection("Teachers")
+            .doc(classesInchargeListValue!["id"])
+            .set({'classIncharge':classID},SetOptions(merge: true));
+      }).then(
         (value) {
           return showDialog(
             context: context,

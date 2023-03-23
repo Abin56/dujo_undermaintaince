@@ -20,8 +20,9 @@ class AdminTeachersPanelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(title: Text('Add Teachers'),),
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
             Row(
               children: [

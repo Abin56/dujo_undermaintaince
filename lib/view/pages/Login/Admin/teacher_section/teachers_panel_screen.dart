@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dujo_website/view/pages/Login/Admin/guardian-section/add_guardian.dart';
+import 'package:dujo_website/view/pages/Login/Admin/parents-section/add_parent.dart';
 import 'package:dujo_website/view/pages/web/admin/dujo_admin_teacher_list.dart';
 import 'package:dujo_website/view/pages/web/class_teacher/add_student.dart';
 import 'package:dujo_website/view/pages/web/class_teacher/class%20_notices.dart';
@@ -11,9 +13,14 @@ import 'package:dujo_website/view/pages/web/widgets/custom_n_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../model/create_classModel/create_classModel.dart';
+
 import 'add_guardian/add_guardian_screen.dart';
 import 'add_parent/add_parents.dart';
 import 'student_list/class_teacher_wise_studentlist.dart';
+=======
+import 'manage_teachers/all_class_teachers.dart';
+import 'manage_teachers/class_subjects.dart';
+
 
 class ClassTeacherAdmin extends StatefulWidget {
   var schoolID;
@@ -33,6 +40,10 @@ class ClassTeacherAdmin extends StatefulWidget {
 
 class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
   String teacherClassId = '';
+
+=======
+  TextEditingController _subjectController = TextEditingController();
+
 
   @override
   void initState() {
@@ -93,13 +104,26 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                         child: Column(
                           children: [
                             InkWell(
+                              onTap: () async {
+                                await submitSubject(
+                                    context, _subjectController);
+                              },
+                              child: Container(
+                                  height: screenSize.width * 1 / 13,
+                                  width: screenSize.width * 1 / 3,
+                                  child: CustomNewContainer(
+                                    onTap: () {},
+                                    text: "Add Subjects",
+                                  )),
+                            ),
+                            InkWell(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => AddStudentTea(
                                           schoolID: widget.schoolID,
-                                          teacherID: widget.teacherID),
+                                          teacherIDE: widget.teacherEmail),
                                     ));
                               },
                               child: Container(
@@ -115,8 +139,8 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AddStudentParents(
-                                          id: widget.schoolID),
+                                      builder: (context) =>
+                                          AddParent(schoolID: widget.schoolID),
                                     ));
                               },
                               child: Container(
@@ -128,10 +152,30 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                             InkWell(
                               onTap: () {
                                 Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AllClassesListViewForTeacher(
+                                            schoolID: widget.schoolID,
+                                            classID: teacherClassId,
+                                            teacherID: '',
+                                          ),
+                                          ),
+                                );
+                              },
+                              child: Container(
+                                  height: screenSize.width * 1 / 13,
+                                  width: screenSize.width * 1 / 3,
+                                  child: CustomNewContainer(
+                                      text: "Manage Teachers", onTap: () {})),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AddStudentGuardian(
-                                          id: widget.schoolID),
+                                      builder: (context) => AddGuardian(
+                                          schoolId: widget.schoolID),
                                     ));
                               },
                               child: Container(
@@ -322,4 +366,85 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
     });
     log(vari.toString());
   }
+
+
+
+  submitSubject(
+      BuildContext context, TextEditingController subjecController) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Add Subject'),
+          content: SingleChildScrollView(
+            child: TextField(
+                controller: subjecController,
+                decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color.fromARGB(255, 255, 255, 255),
+                    hintText: 'Name of Subject',
+
+                    // prefixIcon: Icon(Icons.email),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(19),
+                      borderSide: BorderSide.none,
+                    )),
+                style: const TextStyle(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontSize: 18,
+                )),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('add'),
+              onPressed: () async {
+                FirebaseFirestore.instance
+                    .collection("SchoolListCollection")
+                    .doc(widget.schoolID)
+                    .collection("Classes")
+                    .doc(teacherClassId)
+                    .collection("Subjects")
+                    .doc(subjecController.text.trim().toString())
+                    .set({
+                  'subject': subjecController.text.trim().toString(),
+                  'id': subjecController.text.trim().toString()
+                }).then((value) => showDialog(
+                          context: context,
+                          barrierDismissible: false, // user must tap button!
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Message'),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: <Widget>[
+                                    Text('Successfully created'),
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('ok'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        ));
+              },
+            ),
+            TextButton(
+              child: const Text('cancel'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

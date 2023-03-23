@@ -62,16 +62,16 @@ class EditGuardianDetails extends StatelessWidget {
                     ),
                   ),
                   onPressed: () async { 
-                    try{
-                      final data = FirebaseFirestore.instance.collection('SchoolListCollection').doc(id).collection('Student_Guardian').doc(model.guardianID); 
-                     data.update({"guardianName": guardianNameController.text, 
-                     "classIncharge": classInChargeController.text, 
-                     "joinDate": joinDateController.text});
-                    } 
+                    // try{
+                    //   final data = FirebaseFirestore.instance.collection('SchoolListCollection').doc(id).collection('Student_Guardian').doc(model.guardianID); 
+                    //  data.update({"guardianName": guardianNameController.text, 
+                    //  "classIncharge": classInChargeController.text, 
+                    //  "joinDate": joinDateController.text});
+                    // } 
 
-                    catch(e){
-                      print(e.toString());
-                    }
+                    // catch(e){
+                    //   print(e.toString());
+                    // }
 
                   //  final guardianDetails = await GuardianModel(id: guardianIDController.text,
                   //   guardianName: guardianNameController.text, studentID: studentIDController.text,

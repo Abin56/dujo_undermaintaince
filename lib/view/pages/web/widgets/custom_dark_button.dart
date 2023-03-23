@@ -4,6 +4,9 @@ import '../../Login/Admin/teacher_section/student_list/class_teacher_wise_studen
 
 class CustomDarkButton extends StatelessWidget {
   final String text;
+  var classID;
+  var schoolId;
+  var teacherId;
   final VoidCallback onPressed;
   final schoolId;
   final teacherId;
@@ -17,6 +20,11 @@ class CustomDarkButton extends StatelessWidget {
     this.teacherId,
      this.classID,
   }) : super(key: key);
+=======
+   CustomDarkButton(
+      {Key? key, required this.text, required this.onPressed,this.classID,this.schoolId,this.teacherId})
+      : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

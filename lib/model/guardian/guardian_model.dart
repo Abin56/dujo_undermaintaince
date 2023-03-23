@@ -12,7 +12,6 @@ class GuardianModel {
   GuardianModel({
     required this.id,
     required this.guardianName,
-    required this.guardianID,
     required this.joinDate,
     required this.guardianPhoneNumber,
     required this.guardianEmail,
@@ -20,7 +19,6 @@ class GuardianModel {
 
   String guardianName;
   String id;
-  String guardianID;
   String joinDate;
   String guardianPhoneNumber;
   String guardianEmail;
@@ -29,7 +27,6 @@ class GuardianModel {
         id: json["id"] ?? '',
         guardianName: json["guardianName"] ?? '',
         joinDate: json["joinDate"] ?? '',
-        guardianID: json["guardianID"] ?? '',
         guardianPhoneNumber: json["guardianPhoneNumber"] ?? '',
         guardianEmail: json["guardianEmail"] ?? '',
       );
@@ -37,7 +34,6 @@ class GuardianModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "guardianName": guardianName,
-        "guardianID": guardianID,
         "joinDate": joinDate,
         "guardianPhoneNumber": guardianPhoneNumber,
         "guardianEmail": guardianEmail,

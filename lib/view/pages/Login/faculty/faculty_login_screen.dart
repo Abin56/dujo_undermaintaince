@@ -253,9 +253,16 @@ class FacultyLoginScreen extends StatelessWidget {
                               Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
                                   return ClassTeacherAdmin(
+
                                     schoolID: schoolID,
                                     teacherID: passwordController.text.trim(),
                                     teacherEmail: idController.text.trim(),
+
+                                 
+                                    teacherEmail: idController.text.trim(),
+                                    schoolID: schoolID,
+                                    teacherID: passwordController.text.trim(),
+
                                   );
                                 },
                               ));

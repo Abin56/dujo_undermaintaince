@@ -1,4 +1,5 @@
 import 'package:dujo_website/model/create_classModel/create_classModel.dart';
+import 'package:dujo_website/model/drop_DownList/get_classList.dart';
 import 'package:dujo_website/view/pages/web/widgets/custom_blue_button.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class _AddClassesState extends State<AddClasses> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 27, 95, 88),
-      appBar: AppBar(title: Text('ADD CLASSES')),
+      appBar: AppBar(title: Text('LASSES')),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(top: screenSize.width * 1 / 9),
@@ -52,13 +53,7 @@ class _AddClassesState extends State<AddClasses> {
                 ),
                 Padding(
                   padding: EdgeInsets.all(15),
-                  child: TextField(
-                    controller: classInChargeController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Class Incharge',
-                    ),
-                  ),
+                  child: GetClassInchargeListDropDownButton(schoolID:widget.id, )
                 ),
                 SizedBox(
                   height: screenSize.width * 1 / 25,
@@ -76,11 +71,11 @@ class _AddClassesState extends State<AddClasses> {
                           id: classIDController.text.trim(),
                           className: classNameController.text.trim(),
                           classID: classIDController.text.trim(),
-                          classIncharge: classInChargeController.text.trim(),
+                          classIncharge: classesInchargeListValue!["id"],
                           joinDate: DateTime.now().toString());
-                          CreateClassesAddToFireBase().createClassesController(classDetails, context,widget.id);
+                          CreateClassesAddToFireBase().createClassesController(classDetails, context,widget.id,classIDController.text.trim());
                     },
-                    child: const Text("Add Teacher"),
+                    child: const Text("Add Class"),
                   ),
                 )
               ]),

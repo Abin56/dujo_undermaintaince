@@ -34,7 +34,7 @@ class AddGuardian extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(15),
                 child: TextField(
-                  controller: guardianIDController,
+                  controller: guardianPhoneNoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Guardian PhoneNumber',
@@ -51,14 +51,7 @@ class AddGuardian extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: TextField(
-                  controller: guardianPhoneNoController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Guardian Id'),
-                ),
-              ),
+      
               SizedBox(
                 height: screenSize.width * 1 / 25,
                 width: screenSize.width * 1 / 7,
@@ -71,12 +64,11 @@ class AddGuardian extends StatelessWidget {
                   ),
                   onPressed: () async {
                     final guardianDetails = await GuardianModel(
-                      guardianID: guardianEmailController.text.trim(),
                       joinDate: DateTime.now().toString(),
                       guardianEmail: guardianEmailController.text.trim(),
                       guardianPhoneNumber:
                           guardianPhoneNoController.text.trim(),
-                      id: guardianIDController.text,
+                      id: guardianEmailController.text,
                       guardianName: guardianNameController.text.trim(),
                     );
                     CreateGuardiansAddToFireBase().createSchoolController(
