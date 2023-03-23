@@ -37,7 +37,7 @@ class _ClassWiseSubjectState extends State<ClassWiseSubject> {
         .doc(widget.teacherID)
         .collection('teacherClasses')
         .doc(widget.classID);
-    firebaseFirestore.set({'className': fetchingClass});
+    firebaseFirestore.set({'className': fetchingClass,'id':widget.classID});
     return Scaffold(
       appBar: AppBar(
         title: const Text('Class subjects'),
