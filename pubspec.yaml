@@ -51,7 +51,7 @@ dependencies:
   firebase_storage: ^10.3.9
   shared_preferences: ^2.0.15
   file_picker: ^4.6.1
-  image_picker: ^0.8.5+3
+  image_picker: ^0.8.7
   firebase_database: ^9.1.5
   fluttertoast: ^8.0.9
   liquid_progress_indicator: ^0.4.0
@@ -85,7 +85,7 @@ dependencies:
   firebase_core_platform_interface: 4.5.1
   gcloud: ^0.8.7
   printing: ^5.9.3
-  pdf: ^3.8.4
+  pdf: ^3.9.0
   omni_jitsi_meet: ^1.0.2
   text_scroll: ^0.1.2
   flutter_colorpicker: ^1.0.3
@@ -93,6 +93,7 @@ dependencies:
   draw_graph: ^1.0.0
   syncfusion_flutter_charts: ^20.4.50
   country_state_city_picker: ^1.2.8
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:

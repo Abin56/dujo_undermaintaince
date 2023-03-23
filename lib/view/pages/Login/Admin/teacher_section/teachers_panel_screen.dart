@@ -13,8 +13,14 @@ import 'package:dujo_website/view/pages/web/widgets/custom_n_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../model/create_classModel/create_classModel.dart';
+
+import 'add_guardian/add_guardian_screen.dart';
+import 'add_parent/add_parents.dart';
+import 'student_list/class_teacher_wise_studentlist.dart';
+=======
 import 'manage_teachers/all_class_teachers.dart';
 import 'manage_teachers/class_subjects.dart';
+
 
 class ClassTeacherAdmin extends StatefulWidget {
   var schoolID;
@@ -34,7 +40,10 @@ class ClassTeacherAdmin extends StatefulWidget {
 
 class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
   String teacherClassId = '';
+
+=======
   TextEditingController _subjectController = TextEditingController();
+
 
   @override
   void initState() {
@@ -223,8 +232,10 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          ClassEventsTeacher(),
+                                      builder: (context) => ClassEventsTeacher(
+                                        classId: teacherClassId,
+                                        schoolId: widget.schoolID,
+                                      ),
                                     ));
                               },
                               child: Container(
@@ -238,8 +249,10 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          ClassNoticeTeacher(),
+                                      builder: (context) => ClassNoticeTeacher(
+                                        classId: teacherClassId,
+                                        schoolId: widget.schoolID,
+                                      ),
                                     ));
                               },
                               child: Container(
@@ -354,6 +367,8 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
     log(vari.toString());
   }
 
+
+
   submitSubject(
       BuildContext context, TextEditingController subjecController) async {
     return showDialog(
@@ -431,4 +446,5 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
       },
     );
   }
+
 }

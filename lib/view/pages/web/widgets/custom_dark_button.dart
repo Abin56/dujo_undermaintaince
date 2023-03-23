@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 
+import '../../Login/Admin/teacher_section/student_list/class_teacher_wise_studentlist.dart';
+
 class CustomDarkButton extends StatelessWidget {
   final String text;
   var classID;
   var schoolId;
   var teacherId;
   final VoidCallback onPressed;
+  final schoolId;
+  final teacherId;
+  var classID;
 
+   CustomDarkButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+    this.schoolId,
+    this.teacherId,
+     this.classID,
+  }) : super(key: key);
+=======
    CustomDarkButton(
       {Key? key, required this.text, required this.onPressed,this.classID,this.schoolId,this.teacherId})
       : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +39,15 @@ class CustomDarkButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return ClassTeacherWiseStudentList(
+                  classID: classID,
+                  schoolId: schoolId,
+                  teacherId: teacherId,
+                );
+              }));
+            },
             child: Center(child: Text(text)),
           ),
         ));
