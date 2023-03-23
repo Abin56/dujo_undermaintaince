@@ -19,7 +19,7 @@ class RemoveNoticePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('All Events'),
+          title: const Text('Notices'),
         ),
         body: StreamBuilder(
             stream: FirebaseFirestore.instance

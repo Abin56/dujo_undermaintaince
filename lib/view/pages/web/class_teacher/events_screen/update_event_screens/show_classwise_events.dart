@@ -14,6 +14,7 @@ class ClassTeacherEventShow extends StatelessWidget {
   final TeacherEventController teacherEventController =
       Get.put(TeacherEventController());
   final ClassTeacherEventModel classTeacherEventModel;
+  String imageUrl = '';
 
   @override
   Widget build(BuildContext context) {
@@ -51,29 +52,50 @@ class ClassTeacherEventShow extends StatelessWidget {
                           hint: 'Participants',
                           controller:
                               teacherEventController.participantsController),
+                      imageUrl.isNotEmpty
+                          ? const Text('Image Updated Successfully')
+                          : teacherEventController.isImageUpload.value
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : TextButton(
+                                  onPressed: () async {
+                                    imageUrl = await teacherEventController
+                                        .eventPhotoUpdate(
+                                      uid: classTeacherEventModel.image,
+                                    );
+                                  },
+                                  child: const Text('Upload Image'),
+                                ),
                       ElevatedButton(
                         onPressed: () async {
-                          teacherEventController.updateEvent(
-                              schoolId: schoolId,
-                              classId: classId,
-                              classTeacherEventModel: ClassTeacherEventModel(
-                                eventId: classTeacherEventModel.eventId,
-                                eventName:
-                                    teacherEventController.nameController.text,
-                                eventDate:
-                                    teacherEventController.dateController.text,
-                                description: teacherEventController
-                                    .descriptionController.text,
-                                venue:
-                                    teacherEventController.venueController.text,
-                                chiefGuest: teacherEventController
-                                    .chiefGuestController.text,
-                                participants: teacherEventController
-                                    .participantsController.text,
-                                image: '',
-                              ),
-                              documentId: classTeacherEventModel.eventId,
-                              context: context);
+                          imageUrl = '';
+                          imageUrl =
+                              await teacherEventController.eventPhotoUpdate(
+                                  uid: classTeacherEventModel.imageUid);
+                          if (context.mounted) {
+                            teacherEventController.updateEvent(
+                                schoolId: schoolId,
+                                classId: classId,
+                                classTeacherEventModel: ClassTeacherEventModel(
+                                    eventId: classTeacherEventModel.eventId,
+                                    eventName: teacherEventController
+                                        .nameController.text,
+                                    eventDate: teacherEventController
+                                        .dateController.text,
+                                    description: teacherEventController
+                                        .descriptionController.text,
+                                    venue: teacherEventController
+                                        .venueController.text,
+                                    chiefGuest: teacherEventController
+                                        .chiefGuestController.text,
+                                    participants: teacherEventController
+                                        .participantsController.text,
+                                    image: imageUrl,
+                                    imageUid: classTeacherEventModel.imageUid),
+                                documentId: classTeacherEventModel.eventId,
+                                context: context);
+                          }
                         },
                         child: const Text(
                           "Update",

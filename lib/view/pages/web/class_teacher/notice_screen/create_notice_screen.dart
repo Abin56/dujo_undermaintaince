@@ -19,7 +19,7 @@ class ClassTeacherCreateNoticePage extends StatelessWidget {
     teacherNoticeController.clearControllers();
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Create New Events'),
+          title: const Text('Create New Notice'),
         ),
         body: Obx(() {
           return teacherNoticeController.isLoading.value

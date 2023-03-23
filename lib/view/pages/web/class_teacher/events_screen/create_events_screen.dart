@@ -14,6 +14,7 @@ class ClassTeacherCreateEventsPage extends StatelessWidget {
   final String classId;
   final TeacherEventController teacherEventController =
       Get.put(TeacherEventController());
+  Map<String, String> imageDataMap = <String, String>{};
 
   @override
   Widget build(BuildContext context) {
@@ -51,28 +52,42 @@ class ClassTeacherCreateEventsPage extends StatelessWidget {
                           hint: 'Participants',
                           controller:
                               teacherEventController.participantsController),
+                      imageDataMap.isNotEmpty
+                          ? const Text('Image Uploaded Successfully')
+                          : teacherEventController.isImageUpload.value
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : TextButton(
+                                  onPressed: () async {
+                                    imageDataMap = await teacherEventController
+                                        .eventPhotoUpload();
+                                  },
+                                  child: const Text('Upload Image'),
+                                ),
                       ElevatedButton(
                           onPressed: () async {
                             await teacherEventController.createEvents(
                               schoolId: schoolId,
                               classId: classId,
                               classTeacherEventModel: ClassTeacherEventModel(
-                                eventId: '',
-                                eventName:
-                                    teacherEventController.nameController.text,
-                                eventDate:
-                                    teacherEventController.dateController.text,
-                                description: teacherEventController
-                                    .descriptionController.text,
-                                venue:
-                                    teacherEventController.venueController.text,
-                                chiefGuest: teacherEventController
-                                    .chiefGuestController.text,
-                                participants: teacherEventController
-                                    .participantsController.text,
-                                image: '',
-                              ),
+                                  eventId: '',
+                                  eventName: teacherEventController
+                                      .nameController.text,
+                                  eventDate: teacherEventController
+                                      .dateController.text,
+                                  description: teacherEventController
+                                      .descriptionController.text,
+                                  venue: teacherEventController
+                                      .venueController.text,
+                                  chiefGuest: teacherEventController
+                                      .chiefGuestController.text,
+                                  participants: teacherEventController
+                                      .participantsController.text,
+                                  image: imageDataMap['downloadUrl']!,
+                                  imageUid: imageDataMap['imageUid']!),
                             );
+                            imageDataMap = {};
                           },
                           child: const Text("Submit"))
                     ],

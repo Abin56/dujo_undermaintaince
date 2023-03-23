@@ -93,6 +93,7 @@ dependencies:
   draw_graph: ^1.0.0
   syncfusion_flutter_charts: ^20.4.50
   country_state_city_picker: ^1.2.8
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:

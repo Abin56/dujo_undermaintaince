@@ -16,7 +16,7 @@ class ClassNoticePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('All Events'),
+          title: const Text('All Notice'),
         ),
         body: StreamBuilder(
             stream: FirebaseFirestore.instance

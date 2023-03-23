@@ -1,7 +1,13 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dujo_website/utils/utils.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../model/class_teacher/class_teacher_event_model.dart';
 
@@ -14,6 +20,7 @@ class TeacherEventController extends GetxController {
   final TextEditingController chiefGuestController = TextEditingController();
   final TextEditingController participantsController = TextEditingController();
   RxBool isLoading = false.obs;
+  RxBool isImageUpload = false.obs;
   //create events
 
   Future<void> createEvents({
@@ -115,5 +122,57 @@ class TeacherEventController extends GetxController {
     venueController.clear();
     chiefGuestController.clear();
     participantsController.clear();
+  }
+
+  Future<Map<String, String>> eventPhotoUpload() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      if (result != null) {
+        Uint8List? file = result.files.first.bytes;
+        String uid = const Uuid().v1();
+        isImageUpload.value = true;
+        UploadTask uploadTask = FirebaseStorage.instance
+            .ref()
+            .child("files/events/$uid")
+            .putData(file!);
+
+        final TaskSnapshot snap = await uploadTask;
+        final String downloadUrl = await snap.ref.getDownloadURL();
+        isImageUpload.value = false;
+        return {
+          "downloadUrl": downloadUrl,
+          "imageUid": uid,
+        };
+      } else {
+        return {};
+      }
+    } catch (e) {
+      log(e.toString());
+      return {};
+    }
+  }
+
+  Future<String> eventPhotoUpdate({required String uid}) async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      if (result != null) {
+        Uint8List? file = result.files.first.bytes;
+        isImageUpload.value = true;
+        UploadTask uploadTask = FirebaseStorage.instance
+            .ref()
+            .child("files/events/$uid")
+            .putData(file!);
+
+        final TaskSnapshot snap = await uploadTask;
+        final String downloadUrl = await snap.ref.getDownloadURL();
+        isImageUpload.value = false;
+        return downloadUrl;
+      } else {
+        return '';
+      }
+    } catch (e) {
+      log(e.toString());
+      return '';
+    }
   }
 }
