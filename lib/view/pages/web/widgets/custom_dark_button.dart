@@ -8,9 +8,7 @@ class CustomDarkButton extends StatelessWidget {
   var schoolId;
   var teacherId;
   final VoidCallback onPressed;
-  final schoolId;
-  final teacherId;
-  var classID;
+
 
    CustomDarkButton({
     Key? key,
@@ -20,10 +18,8 @@ class CustomDarkButton extends StatelessWidget {
     this.teacherId,
      this.classID,
   }) : super(key: key);
-=======
-   CustomDarkButton(
-      {Key? key, required this.text, required this.onPressed,this.classID,this.schoolId,this.teacherId})
-      : super(key: key);
+
+
 
 
   @override

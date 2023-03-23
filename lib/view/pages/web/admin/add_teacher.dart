@@ -92,7 +92,7 @@ class _AddTeacherState extends State<AddTeacher> {
                           id: emailController.text.trim(),
                           teacherName: teacherName.text.trim(),
 
-                          classIncharge: classIDListValue["classID"] ?? '',
+                       
                      employeeID: employeeID.text.trim(),
                           joinDate: DateTime.now().toString());
                       CreateTeachersAddToFireBase().createSchoolController(

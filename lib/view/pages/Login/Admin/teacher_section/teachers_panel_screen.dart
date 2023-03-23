@@ -7,19 +7,14 @@ import 'package:dujo_website/view/pages/web/admin/dujo_admin_teacher_list.dart';
 import 'package:dujo_website/view/pages/web/class_teacher/add_student.dart';
 import 'package:dujo_website/view/pages/web/class_teacher/class%20_notices.dart';
 import 'package:dujo_website/view/pages/web/class_teacher/class_event.dart';
-import 'package:dujo_website/view/pages/web/class_teacher/update_student.dart';
 import 'package:dujo_website/view/pages/web/widgets/custom_dark_button.dart';
 import 'package:dujo_website/view/pages/web/widgets/custom_n_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../model/create_classModel/create_classModel.dart';
 
-import 'add_guardian/add_guardian_screen.dart';
-import 'add_parent/add_parents.dart';
-import 'student_list/class_teacher_wise_studentlist.dart';
-=======
+
 import 'manage_teachers/all_class_teachers.dart';
-import 'manage_teachers/class_subjects.dart';
 
 
 class ClassTeacherAdmin extends StatefulWidget {
@@ -41,7 +36,6 @@ class ClassTeacherAdmin extends StatefulWidget {
 class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
   String teacherClassId = '';
 
-=======
   TextEditingController _subjectController = TextEditingController();
 
 

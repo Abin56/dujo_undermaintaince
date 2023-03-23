@@ -259,9 +259,7 @@ class FacultyLoginScreen extends StatelessWidget {
                                     teacherEmail: idController.text.trim(),
 
                                  
-                                    teacherEmail: idController.text.trim(),
-                                    schoolID: schoolID,
-                                    teacherID: passwordController.text.trim(),
+                       
 
                                   );
                                 },
