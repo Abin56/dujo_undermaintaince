@@ -299,7 +299,7 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                 .doc(widget.schoolID)
                                 .collection("Classes")
                                 .where('classIncharge',
-                                    isEqualTo: widget.teacherID)
+                                    isEqualTo: widget.teacherEmail)
                                 .get(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
@@ -314,7 +314,7 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                                             classID: teacherClassId,
                                             text: data.className,
                                             schoolId: widget.schoolID,
-                                            teacherId: widget.teacherID,
+                                            teacherId: widget.teacherEmail,
                                             onPressed: () {}),
                                       );
                                     },
