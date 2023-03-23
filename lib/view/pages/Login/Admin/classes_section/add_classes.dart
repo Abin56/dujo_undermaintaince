@@ -21,7 +21,7 @@ class _AddClassesState extends State<AddClasses> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 27, 95, 88),
-      appBar: AppBar(title: Text('ADD CLASSES')),
+      appBar: AppBar(title: Text('LASSES')),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(top: screenSize.width * 1 / 9),
