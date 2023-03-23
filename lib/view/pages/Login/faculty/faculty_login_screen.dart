@@ -255,7 +255,7 @@ class FacultyLoginScreen extends StatelessWidget {
                                   return ClassTeacherAdmin(
 
                                     schoolID: schoolID,
-                                    teacherID: passwordController.text.trim(),
+                                    teacherID: idController.text.trim(),
                                     teacherEmail: idController.text.trim(),
 
                                  
