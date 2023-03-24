@@ -58,29 +58,30 @@ class _AdminTeacherListState extends State<AdminTeacherList> {
                                 .collection("Teachers")
                                 .snapshots(),
                             builder: (context, snapshot) {
-                 if (snapshot.hasData) {
-                               return ListView.separated(
-                                  itemBuilder: (context, index) {
-                                    final data = AddTeachersModel.fromJson(
-                                        snapshot.data!.docs[index].data());
-                                    return Container(
-                                      height: 50,
-                                      width: 400,
-                                      color: Color.fromARGB(255, 1, 238, 255),
-                                      child:
-                                          Center(child: Text(data.teacherName)),
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return SizedBox(
-                                      height: 10,
-                                    );
-                                  },
-                                  itemCount: snapshot.data!.docs.length);
-                   
-                 }else{
-                  return Center(child: CircularProgressIndicator.adaptive(),);
-                 }
+                              if (snapshot.hasData) {
+                                return ListView.separated(
+                                    itemBuilder: (context, index) {
+                                      final data = AddTeachersModel.fromJson(
+                                          snapshot.data!.docs[index].data());
+                                      return Container(
+                                        height: 50,
+                                        width: 400,
+                                        color: Color.fromARGB(255, 1, 238, 255),
+                                        child: Center(
+                                            child: Text(data.teacherName)),
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(
+                                        height: 10,
+                                      );
+                                    },
+                                    itemCount: snapshot.data!.docs.length);
+                              } else {
+                                return Center(
+                                  child: CircularProgressIndicator.adaptive(),
+                                );
+                              }
                             })),
                   ),
                   Column(
@@ -142,7 +143,7 @@ class _AdminTeacherListState extends State<AdminTeacherList> {
                               context,
                               MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                    NoticeUpdates(),
+                                    AdminNotice(schoolId: widget.id),
                               ),
                             );
                           },
@@ -169,7 +170,8 @@ class _AdminTeacherListState extends State<AdminTeacherList> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => NoticeUpdates(),
+                            builder: (BuildContext context) =>
+                                AdminNotice(schoolId: widget.id),
                           ),
                         );
                       },

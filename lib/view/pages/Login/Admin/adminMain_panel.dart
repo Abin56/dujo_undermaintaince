@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -40,10 +39,10 @@ class _AdminPageState extends State<AdminPage> {
   ];
   bool __showContainer = false;
   bool _showContainer = false;
- 
+
   @override
   Widget build(BuildContext context) {
-     String classID ='';
+    String classID = '';
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
@@ -109,11 +108,9 @@ class _AdminPageState extends State<AdminPage> {
                                   child: CustomButton(
                                     text: "Teachers",
                                   )),
-                            ), 
-                              InkWell(
-                              onTap: () {
-                                
-                              },
+                            ),
+                            InkWell(
+                              onTap: () {},
                               child: Container(
                                   height: screenSize.width * 1 / 13,
                                   width: screenSize.width * 1 / 3,
@@ -121,9 +118,14 @@ class _AdminPageState extends State<AdminPage> {
                                     text: "Students",
                                   )),
                             ),
-                             InkWell(
+                            InkWell(
                               onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: ((context) => AdminGuardiansPanelScreen(id: widget.id))));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            AdminGuardiansPanelScreen(
+                                                id: widget.id))));
                               },
                               child: Container(
                                   height: screenSize.width * 1 / 13,
@@ -132,9 +134,15 @@ class _AdminPageState extends State<AdminPage> {
                                     text: "Guardians",
                                   )),
                             ),
-                             InkWell(
+                            InkWell(
                               onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: ((context) => AdminParentPanelSCreen(id: widget.id,))));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            AdminParentPanelSCreen(
+                                              id: widget.id,
+                                            ))));
                               },
                               child: Container(
                                   height: screenSize.width * 1 / 13,
@@ -164,7 +172,9 @@ class _AdminPageState extends State<AdminPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => NoticeUpdates(),
+                                      builder: (context) => AdminNotice(
+                                        schoolId: widget.id,
+                                      ),
                                     ));
                               },
                               child: Container(
@@ -286,26 +296,26 @@ class _AdminPageState extends State<AdminPage> {
                                   itemBuilder: (context, index) {
                                     final data = AddClassesModel.fromJson(
                                         snapshot.data!.docs[index].data());
-                                     
+
                                     return GestureDetector(
                                       onTap: () {
                                         log(widget.id);
-                                            log(widget.id);
-                                                log(data.id);
+                                        log(widget.id);
+                                        log(data.id);
                                         Navigator.push(context,
                                             MaterialPageRoute(
                                           builder: (context) {
                                             return AttendenceDetailsScreen(
-                                                schoolId: widget.id,
-                                                classID: data.classID,
-                                                  );
+                                              schoolId: widget.id,
+                                              classID: data.classID,
+                                            );
                                           },
                                         ));
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
                                             color: Color.fromARGB(
-                                               151, 141, 146, 141),
+                                                151, 141, 146, 141),
                                             borderRadius:
                                                 BorderRadius.circular(30)),
                                         height: 100,
@@ -319,7 +329,6 @@ class _AdminPageState extends State<AdminPage> {
                                         )),
                                       ),
                                     );
-                                    
                                   },
                                   separatorBuilder: (context, index) {
                                     return const Divider();

@@ -1,16 +1,19 @@
-import 'package:dujo_website/view/pages/web/admin/dujo_admin_teacher_list.dart';
+import 'package:dujo_website/view/pages/web/admin/admin_notice/admin_notice_update.dart/list_admin_notices.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_container.dart';
+import 'admin_notice/admin_notice.dart';
+import 'admin_notice/admin_notice_remove.dart';
 
-class NoticeUpdates extends StatefulWidget {
-  const NoticeUpdates({super.key});
+class AdminNotice extends StatefulWidget {
+  AdminNotice({super.key, this.schoolId = ''});
+  String schoolId;
 
   @override
-  State<NoticeUpdates> createState() => _NoticeUpdatesState();
+  State<AdminNotice> createState() => _NoticeCretesState();
 }
 
-class _NoticeUpdatesState extends State<NoticeUpdates> {
+class _NoticeCretesState extends State<AdminNotice> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -30,7 +33,8 @@ class _NoticeUpdatesState extends State<NoticeUpdates> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AdminTeacherList(),
+                          builder: (context) =>
+                              AddNewNotices(schoolId: widget.schoolId),
                         ));
                   },
                   child: Container(
@@ -48,7 +52,8 @@ class _NoticeUpdatesState extends State<NoticeUpdates> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AdminTeacherList(),
+                          builder: (context) => AdminPageNoticeListPage(
+                              schoolId: widget.schoolId),
                         ));
                   },
                   child: Container(
@@ -66,7 +71,8 @@ class _NoticeUpdatesState extends State<NoticeUpdates> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AdminTeacherList(),
+                          builder: (context) =>
+                              AdminRemoveNoticePage(schoolId: widget.schoolId),
                         ));
                   },
                   child: Container(
