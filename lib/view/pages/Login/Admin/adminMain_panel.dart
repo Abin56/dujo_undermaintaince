@@ -219,7 +219,8 @@ class _AdminPageState extends State<AdminPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => MeetingUpdates(),
+                                      builder: (context) =>
+                                          MeetingUpdates(schoolId: widget.id),
                                     ));
                               },
                               child: Container(

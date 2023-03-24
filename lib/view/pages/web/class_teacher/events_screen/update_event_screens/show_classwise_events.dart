@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../../controllers/Getx/teacher_event_controller/teacher_event_controller.dart';
+import '../../../../../../controllers/Getx/class_teacher/teacher_event_controller/teacher_event_controller.dart';
 import '../../../../../../model/class_teacher/class_teacher_event_model.dart';
 
 class ClassTeacherEventShow extends StatelessWidget {

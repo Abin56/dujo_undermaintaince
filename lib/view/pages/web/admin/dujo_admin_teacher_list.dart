@@ -120,7 +120,9 @@ class _AdminTeacherListState extends State<AdminTeacherList> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        MeetingUpdates(),
+                                        MeetingUpdates(
+                                      schoolId: widget.id,
+                                    ),
                                   ),
                                 );
                               },

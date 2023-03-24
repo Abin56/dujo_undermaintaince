@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../../controllers/Getx/teacher_notice_controller.dart/teacher_notice_controller.dart';
+import '../../../../../../controllers/Getx/class_teacher/teacher_notice_controller.dart/teacher_notice_controller.dart';
 import '../../../../../../model/class_teacher/class_teacher_notice_model.dart';
 
 class ClassTeacherNoticeShow extends StatelessWidget {

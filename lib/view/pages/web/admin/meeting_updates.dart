@@ -1,13 +1,14 @@
-
-import 'package:dujo_website/view/pages/web/admin/dujo_admin_teacher_list.dart';
-
+import 'package:dujo_website/view/pages/web/admin/admin_meeting/admin_meeting_update/admin_meeting_list.dart';
 
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_container.dart';
+import 'admin_meeting/admin_create_meeting.dart';
+import 'admin_meeting/admin_meeting_update/admin_meeting_remove.dart';
 
 class MeetingUpdates extends StatefulWidget {
-  const MeetingUpdates({super.key});
+  const MeetingUpdates({super.key, required this.schoolId});
+  final String schoolId;
 
   @override
   State<MeetingUpdates> createState() => _MeetingUpdatesState();
@@ -19,7 +20,7 @@ class _MeetingUpdatesState extends State<MeetingUpdates> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('NOTICES'),
+        title: const Text('Meeting'),
       ),
       body: Padding(
         padding: EdgeInsets.only(
@@ -33,7 +34,9 @@ class _MeetingUpdatesState extends State<MeetingUpdates> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AdminTeacherList(),
+                          builder: (context) => AdminPageMeetingListPage(
+                            schoolId: widget.schoolId,
+                          ),
                         ));
                   },
                   child: Container(
@@ -51,7 +54,8 @@ class _MeetingUpdatesState extends State<MeetingUpdates> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AdminTeacherList(),
+                          builder: (context) => AdminCreateNewMeetingPage(
+                              schoolId: widget.schoolId),
                         ));
                   },
                   child: Container(
@@ -69,7 +73,9 @@ class _MeetingUpdatesState extends State<MeetingUpdates> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AdminTeacherList(),
+                          builder: (context) => RemoveAdminMeeting(
+                            schoolId: widget.schoolId,
+                          ),
                         ));
                   },
                   child: Container(

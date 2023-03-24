@@ -3,8 +3,8 @@ import 'package:dujo_website/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../model/class_teacher/class_teacher_event_model.dart';
-import '../../../model/class_teacher/class_teacher_notice_model.dart';
+import '../../../../model/class_teacher/class_teacher_event_model.dart';
+import '../../../../model/class_teacher/class_teacher_notice_model.dart';
 
 class TeacherNoticeController extends GetxController {
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;

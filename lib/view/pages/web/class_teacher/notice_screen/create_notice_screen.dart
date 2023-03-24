@@ -1,4 +1,4 @@
-import 'package:dujo_website/controllers/Getx/teacher_notice_controller.dart/teacher_notice_controller.dart';
+import 'package:dujo_website/controllers/Getx/class_teacher/teacher_notice_controller.dart/teacher_notice_controller.dart';
 import 'package:dujo_website/model/class_teacher/class_teacher_notice_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
