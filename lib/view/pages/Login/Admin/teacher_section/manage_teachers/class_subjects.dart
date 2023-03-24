@@ -37,7 +37,7 @@ class _ClassWiseSubjectState extends State<ClassWiseSubject> {
         .doc(widget.teacherID)
         .collection('teacherClasses')
         .doc(widget.classID);
-    firebaseFirestore.set({'className': fetchingClass,'id':widget.classID});
+    firebaseFirestore.set({'className': fetchingClass, 'id': widget.classID});
     return Scaffold(
       appBar: AppBar(
         title: const Text('Class subjects'),
@@ -88,7 +88,7 @@ class _ClassWiseSubjectState extends State<ClassWiseSubject> {
                                             .doc(data.subject)
                                             .set(
                                           <String, dynamic>{
-                                            data.subject: data.subject,
+                                            'SubjectName': data.subject,
                                           },
                                         );
                                         await getMapData();
@@ -147,15 +147,14 @@ class _ClassWiseSubjectState extends State<ClassWiseSubject> {
   }
 
   getClassName() async {
-      var vari = await FirebaseFirestore.instance
-          .collection("SchoolListCollection")
-          .doc(widget.schoolID)
-          .collection("Classes")
-          .doc(widget.classID)
-          .get();
-      setState(() {
-        fetchingClass = vari.data()!['className'];
-      });
-    }
+    var vari = await FirebaseFirestore.instance
+        .collection("SchoolListCollection")
+        .doc(widget.schoolID)
+        .collection("Classes")
+        .doc(widget.classID)
+        .get();
+    setState(() {
+      fetchingClass = vari.data()!['className'];
+    });
   }
-
+}
