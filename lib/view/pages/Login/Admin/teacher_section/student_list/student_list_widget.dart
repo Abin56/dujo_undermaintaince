@@ -39,7 +39,7 @@ void getStudentData(
               SingleChildScrollView(
                 child: DataTable(columns: const [
                   DataColumn(
-                    label: Text(''),
+                    label: Text('')
                   ),
                   DataColumn(
                     label: Text(''),

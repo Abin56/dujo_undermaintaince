@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import '../../../../../model/create_classModel/create_classModel.dart';
 
 
+import '../upload_timetable/select_class.dart';
 import 'manage_teachers/all_class_teachers.dart';
 
 
@@ -194,11 +195,14 @@ class _ClassTeacherAdminState extends State<ClassTeacherAdmin> {
                             ),
                             InkWell(
                               onTap: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder: (context) => NoticeUpdates(),
-                                //     ));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SelectClassForTimeTable(
+                                        schoolID: widget.schoolID,
+                                        
+                                      ),
+                                    ));
                               },
                               child: Container(
                                   height: screenSize.width * 1 / 13,
