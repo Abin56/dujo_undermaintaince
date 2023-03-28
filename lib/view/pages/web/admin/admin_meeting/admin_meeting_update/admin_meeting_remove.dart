@@ -1,40 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dujo_website/controllers/Getx/class_teacher/teacher_notice_controller.dart/teacher_notice_controller.dart';
-import 'package:dujo_website/model/class_teacher/class_teacher_notice_model.dart';
+import 'package:dujo_website/controllers/Getx/admin/meeting_controller.dart';
+import 'package:dujo_website/model/admin_models/admin_meeting_model/admin_meeting_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RemoveNoticePage extends StatelessWidget {
-  RemoveNoticePage({
+class RemoveAdminMeeting extends StatelessWidget {
+  RemoveAdminMeeting({
     super.key,
     required this.schoolId,
-    required this.classId,
   });
   final String schoolId;
-  final String classId;
-  final TeacherNoticeController teacherEventController =
-      Get.put(TeacherNoticeController());
+  final AdminMeetingController adminMeetingController =
+      Get.put(AdminMeetingController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Notices'),
+          title: const Text('Remove meetings'),
         ),
         body: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('SchoolListCollection')
                 .doc(schoolId)
-                .collection('Classes')
-                .doc(classId)
-                .collection('Notice')
+                .collection('AdminMeeting')
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
                     itemCount: snapshot.data?.docs.length,
                     itemBuilder: (context, index) {
-                      final data = ClassTeacherNoticeModel.fromJson(
+                      final data = AdminMeetingModel.fromJson(
                           snapshot.data!.docs[index].data());
                       return ListTile(
                         title: Text(data.heading),
@@ -56,10 +52,10 @@ class RemoveNoticePage extends StatelessWidget {
                                     ),
                                     TextButton(
                                       onPressed: () async {
-                                        teacherEventController.deleteNotice(
+                                        await adminMeetingController
+                                            .deleteMeeting(
                                           schoolId: schoolId,
-                                          classId: classId,
-                                          documentId: data.noticeId,
+                                          documentId: data.meetingId,
                                           context: context,
                                         );
                                       },

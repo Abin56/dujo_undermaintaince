@@ -20,7 +20,9 @@ class AdminTeachersPanelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text('Add Teachers'),),
+      appBar: AppBar(
+        title: Text('Add Teachers'),
+      ),
       body: SafeArea(
         child: ListView(
           children: [
@@ -139,8 +141,7 @@ class AdminTeachersPanelScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const NoticeUpdates(),
+                          builder: (BuildContext context) => AdminNotice(),
                         ),
                       );
                     },

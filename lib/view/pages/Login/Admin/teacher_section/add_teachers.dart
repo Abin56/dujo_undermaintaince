@@ -1,7 +1,3 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dujo_website/model/teacher/add_teacher.dart';
 import 'package:dujo_website/view/pages/web/admin/add_teacher.dart';
 import 'package:dujo_website/view/pages/web/admin/meeting_updates.dart';
 import 'package:dujo_website/view/pages/web/admin/notices_updates.dart';
@@ -125,7 +121,7 @@ class _AdminTeacherListState extends State<AdminTeacherList> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        MeetingUpdates(),
+                                        MeetingUpdates(schoolId: widget.id),
                                   ),
                                 );
                               },
@@ -148,7 +144,7 @@ class _AdminTeacherListState extends State<AdminTeacherList> {
                               context,
                               MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                    NoticeUpdates(),
+                                    AdminNotice(),
                               ),
                             );
                           },
@@ -175,7 +171,7 @@ class _AdminTeacherListState extends State<AdminTeacherList> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => NoticeUpdates(),
+                            builder: (BuildContext context) => AdminNotice(),
                           ),
                         );
                       },
@@ -215,5 +211,3 @@ class _AdminTeacherListState extends State<AdminTeacherList> {
         ));
   }
 }
-
-

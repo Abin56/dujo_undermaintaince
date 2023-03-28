@@ -1,19 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dujo_website/controllers/Getx/class_teacher/teacher_notice_controller.dart/teacher_notice_controller.dart';
-import 'package:dujo_website/model/class_teacher/class_teacher_notice_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class RemoveNoticePage extends StatelessWidget {
-  RemoveNoticePage({
+import '../../../../../model/admin_models/admin_notice_model/admin_notice_model.dart';
+
+class AdminRemoveNoticePage extends StatelessWidget {
+  AdminRemoveNoticePage({
     super.key,
     required this.schoolId,
-    required this.classId,
   });
   final String schoolId;
-  final String classId;
-  final TeacherNoticeController teacherEventController =
-      Get.put(TeacherNoticeController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +20,14 @@ class RemoveNoticePage extends StatelessWidget {
             stream: FirebaseFirestore.instance
                 .collection('SchoolListCollection')
                 .doc(schoolId)
-                .collection('Classes')
-                .doc(classId)
-                .collection('Notice')
+                .collection('adminNotice')
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
                     itemCount: snapshot.data?.docs.length,
                     itemBuilder: (context, index) {
-                      final data = ClassTeacherNoticeModel.fromJson(
+                      final data = AdminNoticeModel.fromJson(
                           snapshot.data!.docs[index].data());
                       return ListTile(
                         title: Text(data.heading),
@@ -56,12 +49,11 @@ class RemoveNoticePage extends StatelessWidget {
                                     ),
                                     TextButton(
                                       onPressed: () async {
-                                        teacherEventController.deleteNotice(
-                                          schoolId: schoolId,
-                                          classId: classId,
-                                          documentId: data.noticeId,
-                                          context: context,
-                                        );
+                                        await removeAdminNotice(
+                                            data.noticeId, schoolId);
+                                        if (context.mounted) {
+                                          Navigator.of(context).pop();
+                                        }
                                       },
                                       child: const Text('Remove'),
                                     )
@@ -82,5 +74,15 @@ class RemoveNoticePage extends StatelessWidget {
                 );
               }
             }));
+  }
+
+  Future<void> removeAdminNotice(String noticeId, String schoolId) async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    await firebaseFirestore
+        .collection('SchoolListCollection')
+        .doc(schoolId)
+        .collection('adminNotice')
+        .doc(noticeId)
+        .delete();
   }
 }

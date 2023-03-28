@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../model/class_teacher/class_teacher_event_model.dart';
+import '../../../../model/class_teacher/class_teacher_event_model.dart';
 
 class TeacherEventController extends GetxController {
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
