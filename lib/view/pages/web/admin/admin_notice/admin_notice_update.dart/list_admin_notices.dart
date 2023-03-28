@@ -29,6 +29,7 @@ class AdminPageNoticeListPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final data = AdminNoticeModel.fromJson(
                         snapshot.data!.docs[index].data());
+
                     return ListTile(
                       title: GestureDetector(
                         child: Text(data.heading),

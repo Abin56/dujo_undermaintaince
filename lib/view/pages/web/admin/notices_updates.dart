@@ -33,8 +33,9 @@ class _NoticeCretesState extends State<AdminNotice> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              AddNewNotices(schoolId: widget.schoolId),
+                          builder: (context) => AddNewNotices(
+                            schoolId: widget.schoolId,
+                          ),
                         ));
                   },
                   child: Container(

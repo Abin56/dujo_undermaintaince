@@ -13,37 +13,44 @@ String adminMeetingModelToJson(AdminMeetingModel data) =>
 class AdminMeetingModel {
   AdminMeetingModel({
     required this.date,
+    required this.heading,
+    required this.categoryOfMeeting,
+    required this.membersToBeExpected,
+    required this.specialGuest,
     required this.time,
-    required this.subject,
-    required this.conductedBy,
-    required this.chiefGuest,
+    required this.venue,
     required this.meetingId,
   });
 
   String date;
+  String heading;
+  String categoryOfMeeting;
+  String membersToBeExpected;
+  String specialGuest;
   String time;
-  String subject;
-  String conductedBy;
-  String chiefGuest;
-
+  String venue;
   String meetingId;
 
   factory AdminMeetingModel.fromJson(Map<String, dynamic> json) =>
       AdminMeetingModel(
         date: json["date"],
+        heading: json["heading"],
+        categoryOfMeeting: json["categoryOfMeeting"],
+        membersToBeExpected: json["membersToBeExpected"],
+        specialGuest: json["specialGuest"],
         time: json["time"],
-        subject: json["subject"],
-        conductedBy: json["conductedBy"],
-        chiefGuest: json["chiefGuest"],
+        venue: json["venue"],
         meetingId: json["meetingId"],
       );
 
   Map<String, dynamic> toJson() => {
         "date": date,
+        "heading": heading,
+        "categoryOfMeeting": categoryOfMeeting,
+        "membersToBeExpected": membersToBeExpected,
+        "specialGuest": specialGuest,
         "time": time,
-        "subject": subject,
-        "conductedBy": conductedBy,
-        "chiefGuest": chiefGuest,
+        "venue": venue,
         "meetingId": meetingId,
       };
 }

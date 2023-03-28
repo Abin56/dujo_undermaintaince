@@ -33,7 +33,7 @@ class RemoveAdminMeeting extends StatelessWidget {
                       final data = AdminMeetingModel.fromJson(
                           snapshot.data!.docs[index].data());
                       return ListTile(
-                        title: Text(data.subject),
+                        title: Text(data.heading),
                         trailing: IconButton(
                           onPressed: () {
                             showDialog(

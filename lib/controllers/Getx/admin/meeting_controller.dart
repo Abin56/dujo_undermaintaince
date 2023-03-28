@@ -9,16 +9,19 @@ import '../../../utils/utils.dart';
 
 class AdminMeetingController extends GetxController {
   TextEditingController dateController = TextEditingController();
+  TextEditingController headingController = TextEditingController();
+  TextEditingController categoryOfMeetingController = TextEditingController();
+  TextEditingController membersTobeExpectedController = TextEditingController();
+  TextEditingController specialGuestController = TextEditingController();
   TextEditingController timeController = TextEditingController();
-  TextEditingController subjectController = TextEditingController();
-  TextEditingController conductedByController = TextEditingController();
-  TextEditingController chiefGuestController = TextEditingController();
+  TextEditingController venueController = TextEditingController();
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   RxBool isLoading = false.obs;
 
   Future<void> addAdminMeeting(
       String schoolId, AdminMeetingModel adminMeeting) async {
     try {
+      isLoading.value = true;
       final data = await firebaseFirestore
           .collection('SchoolListCollection')
           .doc(schoolId)
@@ -33,6 +36,7 @@ class AdminMeetingController extends GetxController {
           .doc(data.id)
           .update({"meetingId": data.id});
       clearControllers();
+      isLoading.value = false;
     } catch (e) {
       log(e.toString());
     }
@@ -91,9 +95,11 @@ class AdminMeetingController extends GetxController {
 
   void clearControllers() {
     dateController.clear();
+    headingController.clear();
+    categoryOfMeetingController.clear();
+    membersTobeExpectedController.clear();
+    specialGuestController.clear();
     timeController.clear();
-    subjectController.clear();
-    conductedByController.clear();
-    chiefGuestController.clear();
+    venueController.clear();
   }
 }

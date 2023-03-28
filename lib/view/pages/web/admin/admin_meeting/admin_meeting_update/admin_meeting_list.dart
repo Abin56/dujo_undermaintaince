@@ -33,7 +33,7 @@ class AdminPageMeetingListPage extends StatelessWidget {
                         snapshot.data!.docs[index].data());
                     return ListTile(
                       title: GestureDetector(
-                        child: Text(data.subject),
+                        child: Text(data.heading),
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) {
